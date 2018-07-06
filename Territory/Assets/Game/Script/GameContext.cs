@@ -12,6 +12,7 @@ public class GameContext : MVCSContext
     protected override void mapBindings()
     {
         mediationBinder.Bind<GameCtrlView>().To<GameCtrlMediator>();
+        mediationBinder.Bind<MapView>().To<MapMediator>();
 
         injectionBinder.Bind<StartupSignal>().ToSingleton();
         injectionBinder.Bind<FrameSignal>().ToSingleton();
