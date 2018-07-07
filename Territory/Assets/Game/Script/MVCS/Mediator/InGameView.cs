@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class InGameView : BaseView
 {
+    public GameObject bgA;
+    public GameObject bgB;
     public Text txtTitle;
+
     public GameObject notifyMask;
     public GameObject notifyBg;
     public Image imgBg;

@@ -37,6 +37,8 @@ public class InGameMediator : Mediator
             view.BTurnBg.SetActive(false);
 
             view.txtTitle.text = "我军回合";
+            view.bgA.SetActive(true);
+            view.bgB.SetActive(false);
         }
         else if(modelGame.gameStatus == eInGameStatus.BTurn)
         {
@@ -44,6 +46,8 @@ public class InGameMediator : Mediator
             view.BTurnBg.SetActive(true);
 
             view.txtTitle.text = "敌军回合";
+            view.bgA.SetActive(false);
+            view.bgB.SetActive(true);
         }
         else if(modelGame.gameStatus == eInGameStatus.Trans)
         {
