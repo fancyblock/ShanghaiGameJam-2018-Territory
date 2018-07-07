@@ -24,4 +24,11 @@ public class GameModel
 
         return 0;
     }
+
+    public bool IsFinishAction(int x, int y)
+    {
+        //TODO
+
+        return false;
+    }
 }

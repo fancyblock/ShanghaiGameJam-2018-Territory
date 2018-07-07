@@ -6,6 +6,8 @@ public class MapView : View
 {
     [Inject]
     public PopupUISignal signalPopupUI { get; set; }
+    [Inject]
+    public GameModel modelGame { get; set; }
 
 
     public MapData mapData;
@@ -69,6 +71,9 @@ public class MapView : View
 
         if(mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
         {
+            if (modelGame.IsFinishAction(x, y))     // 该回合已完成行动
+                return;
+
             curTileX = x;
             curTileY = y;
 

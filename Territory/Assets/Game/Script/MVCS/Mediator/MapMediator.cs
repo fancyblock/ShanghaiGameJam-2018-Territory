@@ -5,7 +5,7 @@ using strange.extensions.mediation.impl;
 public class MapMediator : Mediator
 {
     [Inject]
-    public MapView mapView { get; set; }
+    public MapView view { get; set; }
     [Inject]
     public StartupSignal signalStartup { get; set; }
     [Inject]
@@ -21,7 +21,7 @@ public class MapMediator : Mediator
 
     private void onGameStart()
     {
-        mapView.CreateMap();
+        view.CreateMap();
     }
 
     private void onMakeTroop(eTroopType troopType)
