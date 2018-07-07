@@ -35,6 +35,8 @@ public class InGameView : BaseView
 
     public void ShowNotify(string info, bool red)
     {
+        modelGame.UI_POPUP = true;
+
         txtNotifyInfo.text = info;
 
         if (red)
@@ -60,5 +62,7 @@ public class InGameView : BaseView
         notifyBg.SetActive(false);
 
         notifyMask.SetActive(false);
+
+        modelGame.UI_POPUP = false;
     }
 }
