@@ -28,11 +28,11 @@ public class MapMediator : Mediator
     public OccupyChangeSignal siganlOccupyChange { get; set; }
     [Inject]
     public MoveTroopSignal signalMoveTroop { get; set; }
-
-    private int curTileX, curTileY;
+    
     private Troop curTroop;
 
-    private bool noOperate = false;
+    static public int curTileX, curTileY;
+    static public bool noOperate = false;
 
 
     override public void OnRegister()
@@ -237,8 +237,8 @@ public class MapMediator : Mediator
     }
 
     // 建造部队
-    private void onMakeTroop(eTroopType troopType, eCountry country)
+    private void onMakeTroop(eTroopType troopType, eCountry country, int x, int y)
     {
-        view.MakeTroop(troopType, country, curTileX, curTileY);
+        view.MakeTroop(troopType, country, x, y);
     }
 }

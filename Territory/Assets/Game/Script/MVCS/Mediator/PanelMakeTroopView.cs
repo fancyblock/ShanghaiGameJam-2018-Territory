@@ -27,7 +27,7 @@ public class PanelMakeTroopView : BaseView
             // 扣钱
             modelPlayer.COIN = modelPlayer.COIN - price;
 
-            signalMakeTroop.Dispatch(eTroopType.scissors, eCountry.A);
+            signalMakeTroop.Dispatch(eTroopType.scissors, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
             Debug.Log("make troop1");
 
             onClose();
@@ -43,7 +43,7 @@ public class PanelMakeTroopView : BaseView
             // 扣钱
             modelPlayer.COIN = modelPlayer.COIN - price;
 
-            signalMakeTroop.Dispatch(eTroopType.rock, eCountry.A);
+            signalMakeTroop.Dispatch(eTroopType.rock, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
             Debug.Log("make troop2");
 
             onClose();
@@ -59,7 +59,7 @@ public class PanelMakeTroopView : BaseView
             // 扣钱
             modelPlayer.COIN = modelPlayer.COIN - price;
 
-            signalMakeTroop.Dispatch(eTroopType.paper, eCountry.A);
+            signalMakeTroop.Dispatch(eTroopType.paper, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
             Debug.Log("make troop3");
 
             onClose();

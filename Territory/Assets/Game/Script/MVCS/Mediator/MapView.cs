@@ -156,23 +156,23 @@ public class MapView : View
 
     public Vector2 GridToPosition(int x, int y)
     {
-        return new Vector2(x * mapData.tileWidth / 2.0f + y * mapData.tileWidth / 2.0f, -x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+        return new Vector2(x * mapData.tileWidth / 2.0f + y * mapData.tileWidth / 2.0f, x * mapData.tileHeight / 2.0f - y * mapData.tileHeight / 2.0f);
     }
 
     public int GetTroopOrder(int x, int y)
     {
-        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f) + 2;
+        return 300 - (int)(x * mapData.tileHeight / 2.0f - y * mapData.tileHeight / 2.0f) + 2;
     }
 
 
     private int getTileOrder(int x, int y)
     {
-        return 100 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+        return 100 - (int)(x * mapData.tileHeight / 2.0f - y * mapData.tileHeight / 2.0f);
     }
 
     private int getObjOrder(int x, int y)
     {
-        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+        return 300 - (int)(x * mapData.tileHeight / 2.0f - y * mapData.tileHeight / 2.0f);
     }
 
     public int getTileIndex(int x, int y)
@@ -188,7 +188,7 @@ public class MapView : View
 
     public void MakeTroop(eTroopType type, eCountry country, int x, int y)
     {
-        TroopInfo ti = troopData.GetTroopInfo(type, eCountry.A);
+        TroopInfo ti = troopData.GetTroopInfo(type, country);
 
         GameObject troopGo = Instantiate(ti.prefab, transform);
         troopGo.transform.localPosition = GridToPosition(x, y);

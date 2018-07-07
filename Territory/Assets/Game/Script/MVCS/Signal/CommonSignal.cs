@@ -8,7 +8,7 @@ public class StartupSignal : Signal { }
 
 public class PopupUISignal : Signal<eUI> { }
 
-public class MakeTroopSignal : Signal<eTroopType, eCountry> { }
+public class MakeTroopSignal : Signal<eTroopType, eCountry, int, int> { }
 
 public class EndTurnSignal : Signal<bool> { }
 
