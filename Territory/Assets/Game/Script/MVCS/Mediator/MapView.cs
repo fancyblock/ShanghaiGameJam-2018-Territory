@@ -24,9 +24,9 @@ public class MapView : View
         {
             for(int j = 0; j < mapData.height; j++)
             {
-                eTileType tileType = mapData.tiles[getTileIndex(i, j)];
+                MapTileData mapTileData = mapData.tiles[getTileIndex(i, j)];
 
-                if(tileType != eTileType.None)
+                if(mapTileData.type != eTileType.None)
                 {
                     GameObject go = new GameObject("tile_"+ i + "_" + j);
                     go.transform.parent = transform;
@@ -35,7 +35,7 @@ public class MapView : View
                     go.layer = gameObject.layer;
 
                     SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-                    sr.sprite = tileInfoDic[tileType].sprite;
+                    sr.sprite = tileInfoDic[mapTileData.type].sprite;
                     sr.sortingOrder = getTileOrder(i, j);
 
                     go.AddComponent<PolygonCollider2D>();
@@ -66,9 +66,12 @@ public class MapView : View
 
     private void onTapTile(int x, int y)
     {
-        eTileType tileType = mapData.tiles[getTileIndex(x, y)];
+        MapTileData mapTileData = mapData.tiles[getTileIndex(x, y)];
 
-        if(tileType == eTileType.FactoryLand || tileType == eTileType.CoreLand)
+        if (mapTileData.initCountry != eCountry.A)
+            return;
+
+        if(mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
         {
             signalPopupUI.Dispatch(eUI.MakeTroop);
         }

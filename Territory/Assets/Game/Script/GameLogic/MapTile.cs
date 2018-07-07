@@ -8,7 +8,7 @@ public class MapTile : MonoBehaviour
     private Action<int, int> callback;
 
 
-    void OnMouseDown()
+    void OnMouseUpAsButton()
     {
         if (callback != null)
             callback(x, y);

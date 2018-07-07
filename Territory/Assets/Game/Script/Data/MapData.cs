@@ -13,5 +13,13 @@ public class MapData : ScriptableObject
     public float tileWidth;
     public float tileHeight;
 
-    public eTileType[] tiles;
+    public MapTileData[] tiles;
+}
+
+
+[Serializable]
+public class MapTileData
+{
+    public eTileType type;
+    public eCountry initCountry;
 }
