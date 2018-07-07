@@ -147,6 +147,8 @@ public class MapMediator : Mediator
 
         troop.FINISH_ACTION = true;
 
+        curTroop = null;
+
         noOperate = false;
     }
 

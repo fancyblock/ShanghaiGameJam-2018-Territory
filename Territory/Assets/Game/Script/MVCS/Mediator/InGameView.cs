@@ -8,6 +8,7 @@ public class InGameView : BaseView
     public Text txtTitle;
     public GameObject notifyBg;
     public Text txtNotifyInfo;
+    public Text txtCoin;
 
     public GameObject ATurnBg;
     public GameObject BTurnBg;

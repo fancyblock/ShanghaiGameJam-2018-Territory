@@ -31,7 +31,7 @@ public class GameCtrlMediator : Mediator
         signalEndTurn.AddListener(onEndTurn);
         signalGameStatusChange.AddListener(onGameStatusChange);
 
-        modelPlayer.COIN = 40;
+        modelPlayer.COIN = 240;
 
         signalStartup.Dispatch();
     }

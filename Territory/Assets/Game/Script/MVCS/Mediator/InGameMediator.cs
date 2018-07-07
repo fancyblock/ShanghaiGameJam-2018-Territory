@@ -11,6 +11,8 @@ public class InGameMediator : Mediator
     [Inject]
     public GameModel modelGame { get; set; }
     [Inject]
+    public PlayerModel modelPlayer { get; set; }
+    [Inject]
     public ShowNofitySignal signalShowNotify { get; set; }
 
 
@@ -27,7 +29,9 @@ public class InGameMediator : Mediator
 
     private void onFrame()
     {
-        if(modelGame.gameStatus == eInGameStatus.ATurn)
+        view.txtCoin.text = modelPlayer.COIN.ToString();
+
+        if (modelGame.gameStatus == eInGameStatus.ATurn)
         {
             view.ATurnBg.SetActive(true);
             view.BTurnBg.SetActive(false);
