@@ -15,11 +15,6 @@ public class MapView : View
 
     public void CreateMap()
     {
-        Dictionary<eTileType, TileInfo> tileInfoDic = new Dictionary<eTileType, TileInfo>();
-
-        foreach (TileInfo ti in tileData.tileList)
-            tileInfoDic.Add(ti.type, ti);
-
         for(int i = 0; i < mapData.width; i++)
         {
             for(int j = 0; j < mapData.height; j++)
@@ -35,7 +30,7 @@ public class MapView : View
                     go.layer = gameObject.layer;
 
                     SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-                    sr.sprite = tileInfoDic[mapTileData.type].sprite;
+                    sr.sprite = tileData.GetTileSprite(mapTileData.type, mapTileData.initCountry);
                     sr.sortingOrder = getTileOrder(i, j);
 
                     go.AddComponent<PolygonCollider2D>();

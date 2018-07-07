@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 3
   height: 3
-  tileWidth: 284
-  tileHeight: 142
+  tileWidth: 320
+  tileHeight: 160
   tiles:
   - type: 3
     initCountry: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   - type: 1
     initCountry: 0
   - type: 2
-    initCountry: 2
+    initCountry: 1
   - type: 1
     initCountry: 1
   - type: 0
