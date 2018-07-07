@@ -25,10 +25,10 @@ public class PanelMakeTroopMediator : Mediator
     {
         if (ui == eUI.MakeTroop)
         {
-            m_view.txtCurCoin.text = "当前国库：" + modelPlayer.COIN;
-            m_view.txtPriceTroop1.text = "造价：" + modelGame.GetTroopPrice(eTroopType.scissors);
-            m_view.txtPriceTroop2.text = "造价：" + modelGame.GetTroopPrice(eTroopType.rock);
-            m_view.txtPriceTroop3.text = "造价：" + modelGame.GetTroopPrice(eTroopType.paper);
+            m_view.txtCurCoin.text = "" + modelPlayer.COIN;
+            m_view.txtPriceTroop1.text = "" + modelGame.GetTroopPrice(eTroopType.scissors);
+            m_view.txtPriceTroop2.text = "" + modelGame.GetTroopPrice(eTroopType.rock);
+            m_view.txtPriceTroop3.text = "" + modelGame.GetTroopPrice(eTroopType.paper);
 
             gameObject.SetActive(true);
             modelGame.UI_POPUP = true;

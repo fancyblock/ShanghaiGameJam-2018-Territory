@@ -8,6 +8,7 @@ public class PanelMakeTroopView : BaseView
     public Text txtPriceTroop1;
     public Text txtPriceTroop2;
     public Text txtPriceTroop3;
+    //TODO 
 
     [Inject]
     public PlayerModel modelPlayer { get; set; }
@@ -64,5 +65,15 @@ public class PanelMakeTroopView : BaseView
 
             onClose();
         }
+    }
+
+    /// <summary>
+    /// 确认建造
+    /// </summary>
+    public void onConfirm()
+    {
+        Debug.Log("PanelMakeTroopView: onConfirm");
+
+        //TODO 
     }
 }
