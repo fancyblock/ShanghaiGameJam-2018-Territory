@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering;
 using System.Collections;
 
+
 public class MapView : View
 {
     public MapData mapData;
@@ -12,8 +13,6 @@ public class MapView : View
     public TroopData troopData;
 
     public AnimatorPlayer animCloud;
-
-    public Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
 
 
     public void CreateMap()
@@ -187,7 +186,7 @@ public class MapView : View
     }
 
 
-    public void MakeTroop(eTroopType type, int x, int y)
+    public void MakeTroop(eTroopType type, eCountry country, int x, int y)
     {
         TroopInfo ti = troopData.GetTroopInfo(type, eCountry.A);
 
@@ -196,7 +195,7 @@ public class MapView : View
 
         Troop t = troopGo.GetComponent<Troop>();
         t.type = type;
-        t.country = eCountry.A;
+        t.country = country;
         t.x = x;
         t.y = y;
 
@@ -211,5 +210,19 @@ public class MapView : View
     private void onTapTroop(Troop troop)
     {
         GetComponent<MapMediator>().onTapTroop(troop);
+    }
+
+
+    private Dictionary<string, MapTile> mapTilesCache = null;
+
+    private Dictionary<string, MapTile> mapTiles
+    {
+        get
+        {
+            if (mapTilesCache == null)
+                mapTilesCache = GetComponent<MapMediator>().modelGame.mapTiles;
+            
+            return mapTilesCache;
+        }
     }
 }

@@ -5,6 +5,8 @@ public class GameModel
 {
     public eInGameStatus gameStatus { get; set; }
 
+    public Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
+
     public bool UI_POPUP { get; set; }
 
 

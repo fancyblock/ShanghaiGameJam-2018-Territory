@@ -20,9 +20,14 @@ public class PanelMakeTroopView : BaseView
 
     public void onMakeTroop1()
     {
-        if (modelPlayer.COIN >= modelGame.GetTroopPrice(eTroopType.scissors))
+        int price = modelGame.GetTroopPrice(eTroopType.scissors);
+
+        if (modelPlayer.COIN >= price)
         {
-            signalMakeTroop.Dispatch(eTroopType.scissors);
+            // 扣钱
+            modelPlayer.COIN = modelPlayer.COIN - price;
+
+            signalMakeTroop.Dispatch(eTroopType.scissors, eCountry.A);
             Debug.Log("make troop1");
 
             onClose();
@@ -31,9 +36,14 @@ public class PanelMakeTroopView : BaseView
 
     public void onMakeTroop2()
     {
-        if (modelPlayer.COIN >= modelGame.GetTroopPrice(eTroopType.rock))
+        int price = modelGame.GetTroopPrice(eTroopType.rock);
+
+        if (modelPlayer.COIN >= price)
         {
-            signalMakeTroop.Dispatch(eTroopType.rock);
+            // 扣钱
+            modelPlayer.COIN = modelPlayer.COIN - price;
+
+            signalMakeTroop.Dispatch(eTroopType.rock, eCountry.A);
             Debug.Log("make troop2");
 
             onClose();
@@ -42,9 +52,14 @@ public class PanelMakeTroopView : BaseView
 
     public void onMakeTroop3()
     {
+        int price = modelGame.GetTroopPrice(eTroopType.paper);
+
         if (modelPlayer.COIN >= modelGame.GetTroopPrice(eTroopType.paper))
         {
-            signalMakeTroop.Dispatch(eTroopType.paper);
+            // 扣钱
+            modelPlayer.COIN = modelPlayer.COIN - price;
+
+            signalMakeTroop.Dispatch(eTroopType.paper, eCountry.A);
             Debug.Log("make troop3");
 
             onClose();

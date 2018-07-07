@@ -1,4 +1,5 @@
 ﻿using strange.extensions.signal.impl;
+using System.Collections.Generic;
 
 
 public class FrameSignal : Signal { }
@@ -7,7 +8,7 @@ public class StartupSignal : Signal { }
 
 public class PopupUISignal : Signal<eUI> { }
 
-public class MakeTroopSignal : Signal<eTroopType> { }
+public class MakeTroopSignal : Signal<eTroopType, eCountry> { }
 
 public class EndTurnSignal : Signal<bool> { }
 
@@ -23,3 +24,5 @@ public class GetOccupyTileSignal : Signal<eCountry>
 }
 
 public class OccupyChangeSignal : Signal { }
+
+public class MoveTroopSignal : Signal<Troop, int, int> { }

@@ -30,6 +30,7 @@ public class GameContext : MVCSContext
         injectionBinder.Bind<MapRefreshSignal>().ToSingleton();
         injectionBinder.Bind<GetOccupyTileSignal>().ToSingleton();
         injectionBinder.Bind<OccupyChangeSignal>().ToSingleton();
+        injectionBinder.Bind<MoveTroopSignal>().ToSingleton();
     }
 
     protected override void addCoreComponents()

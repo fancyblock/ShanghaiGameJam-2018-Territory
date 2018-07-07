@@ -26,6 +26,8 @@ public class MapMediator : Mediator
     public GetOccupyTileSignal signalGetOccupyTile { get; set; }
     [Inject]
     public OccupyChangeSignal siganlOccupyChange { get; set; }
+    [Inject]
+    public MoveTroopSignal signalMoveTroop { get; set; }
 
     private int curTileX, curTileY;
     private Troop curTroop;
@@ -39,12 +41,13 @@ public class MapMediator : Mediator
         signalMakeTroop.AddListener(onMakeTroop);
         signalMapRefresh.AddListener(onMapRefresh);
         signalGetOccupyTile.AddListener(onGetOccupyTile);
+        signalMoveTroop.AddListener(moveTroop);
     }
 
     private void onMapRefresh()
     {
         // 部队的行动力恢复
-        foreach(var tile in view.mapTiles.Values)
+        foreach(var tile in modelGame.mapTiles.Values)
         {
             if (tile.troop)
                 tile.troop.FINISH_ACTION = false;
@@ -133,7 +136,7 @@ public class MapMediator : Mediator
     {
         int i = 0;
 
-        foreach(MapTile mt in view.mapTiles.Values)
+        foreach(MapTile mt in modelGame.mapTiles.Values)
         {
             if (mt.country == country)
                 i++;
@@ -186,7 +189,7 @@ public class MapMediator : Mediator
     {
         MapTile tile = null;
 
-        foreach( MapTile mt in view.mapTiles.Values)
+        foreach( MapTile mt in modelGame.mapTiles.Values)
         {
             if (mt.type == eTileType.CrossLand)
             {
@@ -233,14 +236,9 @@ public class MapMediator : Mediator
         curTroop = null;
     }
 
-    // 建造单位
-    private void onMakeTroop(eTroopType troopType)
+    // 建造部队
+    private void onMakeTroop(eTroopType troopType, eCountry country)
     {
-        int price = modelGame.GetTroopPrice(troopType);
-
-        // 扣钱
-        modelPlayer.COIN = modelPlayer.COIN - price;
-        // 建造部队
-        view.MakeTroop(troopType, curTileX, curTileY);
+        view.MakeTroop(troopType, country, curTileX, curTileY);
     }
 }
