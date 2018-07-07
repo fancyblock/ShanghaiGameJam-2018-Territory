@@ -12,3 +12,7 @@ public class MakeTroopSignal : Signal<eTroopType> { }
 public class EndTurnSignal : Signal<bool> { }
 
 public class ShowNofitySignal : Signal<string> { }
+
+public class GameStatusChangeSignal : Signal<eInGameStatus> { }
+
+public class MapRefreshSignal : Signal { }

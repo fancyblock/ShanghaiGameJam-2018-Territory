@@ -22,6 +22,7 @@ public class Troop : MonoBehaviour
         this.callback = callback;
     }
 
+
     /// <summary>
     /// 被点击
     /// </summary>
@@ -37,6 +38,10 @@ public class Troop : MonoBehaviour
         {
             flagFinishAct.SetActive(value);
             finishAct = value;
+        }
+        get
+        {
+            return finishAct;
         }
     }
 }

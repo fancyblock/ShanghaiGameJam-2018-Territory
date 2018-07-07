@@ -4,23 +4,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 
+
 public class MapView : View
 {
-    [Inject]
-    public PopupUISignal signalPopupUI { get; set; }
-    [Inject]
-    public GameModel modelGame { get; set; }
-    [Inject]
-    public PlayerModel modelPlayer { get; set; }
-
-
     public MapData mapData;
     public TileData tileData;
     public TroopData troopData;
 
-    public int curTileX, curTileY;
-
-    private Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
+    public Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
 
 
     public void CreateMap()
@@ -92,32 +83,14 @@ public class MapView : View
         return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
     }
 
-    private int getTileIndex(int x, int y)
+    public int getTileIndex(int x, int y)
     {
         return y * mapData.width + x;
     }
 
     private void onTapTile(int x, int y)
     {
-        MapTileData mapTileData = mapData.tiles[getTileIndex(x, y)];
-
-        if (mapTileData.initCountry != eCountry.A)
-            return;
-
-        if(mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
-        {
-            if (modelGame.IsFinishAction(x, y))     // 该回合已完成行动
-            {
-                // 弹框说明或显示正在建造中单位信息？
-
-                return;
-            }
-
-            curTileX = x;
-            curTileY = y;
-
-            signalPopupUI.Dispatch(eUI.MakeTroop);
-        }
+        GetComponent<MapMediator>().onTapTile(x, y);
     }
 
 
@@ -144,6 +117,6 @@ public class MapView : View
 
     private void onTapTroop(Troop troop)
     {
-        //TODO 
+        GetComponent<MapMediator>().onTapTroop(troop);
     }
 }

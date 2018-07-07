@@ -28,6 +28,11 @@ public class GameModel
         return 0;
     }
 
+    public void CleanFinishAction()
+    {
+        finishActTiles.Clear();
+    }
+
     public bool IsFinishAction(int x, int y)
     {
         return finishActTiles.Contains(x + "_" + y);

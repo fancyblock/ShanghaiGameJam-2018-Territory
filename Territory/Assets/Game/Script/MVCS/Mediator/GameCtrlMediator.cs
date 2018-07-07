@@ -12,6 +12,8 @@ public class GameCtrlMediator : Mediator
     public StartupSignal signalStartup { get; set; }
     [Inject]
     public EndTurnSignal signalEndTurn { get; set; }
+    [Inject]
+    public GameStatusChangeSignal signalGameStatusChange { get; set; }
 
     [Inject]
     public PlayerModel modelPlayer { get; set; }
@@ -19,23 +21,49 @@ public class GameCtrlMediator : Mediator
     public GameModel modelGame { get; set; }
     [Inject]
     public ShowNofitySignal signalShowNotify { get; set; }
+    [Inject]
+    public MapRefreshSignal signalMapRefresh { get; set; }
 
 
     override public void OnRegister()
     {
         signalFrame.AddListener(onFrame);
         signalEndTurn.AddListener(onEndTurn);
+        signalGameStatusChange.AddListener(onGameStatusChange);
 
         modelPlayer.COIN = 40;
 
         signalStartup.Dispatch();
     }
 
+    /// <summary>
+    /// 游戏状态改变
+    /// </summary>
+    /// <param name="status"></param>
+    private void onGameStatusChange(eInGameStatus status)
+    {
+        switch (status)
+        {
+            case eInGameStatus.ATurn:
+                modelGame.CleanFinishAction();
+                signalMapRefresh.Dispatch();
+                break;
+            case eInGameStatus.BTurn:
+                //TODO 
+                break;
+            case eInGameStatus.Trans:
+                break;
+            default:
+                break;
+        }
+    }
+
     private void onEndTurn(bool aCountry)
     {
         modelGame.gameStatus = eInGameStatus.Trans;
+        signalGameStatusChange.Dispatch(modelGame.gameStatus);
 
-        if(aCountry)
+        if (aCountry)
         {
             signalShowNotify.Dispatch("我军回合结束");
             StartCoroutine(delayChangeStatus(eInGameStatus.BTurn));
@@ -52,6 +80,7 @@ public class GameCtrlMediator : Mediator
         yield return new WaitForSeconds(1.0f);
 
         modelGame.gameStatus = status;
+        signalGameStatusChange.Dispatch(modelGame.gameStatus);
     }
 
 
