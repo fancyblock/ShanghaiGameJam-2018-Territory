@@ -23,6 +23,8 @@ public class GameCtrlMediator : Mediator
     public ShowNofitySignal signalShowNotify { get; set; }
     [Inject]
     public MapRefreshSignal signalMapRefresh { get; set; }
+    [Inject]
+    public GetOccupyTileSignal signalGetOccupyTile { get; set; }
 
 
     override public void OnRegister()
@@ -31,7 +33,7 @@ public class GameCtrlMediator : Mediator
         signalEndTurn.AddListener(onEndTurn);
         signalGameStatusChange.AddListener(onGameStatusChange);
 
-        modelPlayer.COIN = 240;
+        modelPlayer.COIN = GameDef.INIT_GOLD;
 
         signalStartup.Dispatch();
     }
@@ -46,6 +48,8 @@ public class GameCtrlMediator : Mediator
         {
             case eInGameStatus.ATurn:
                 signalMapRefresh.Dispatch();
+                // 结算收入
+                refreshIncome();
                 break;
             case eInGameStatus.BTurn:
                 //TODO 
@@ -81,6 +85,16 @@ public class GameCtrlMediator : Mediator
         modelGame.gameStatus = status;
         signalGameStatusChange.Dispatch(modelGame.gameStatus);
     }
+
+    // 结算我军收入 
+    private void refreshIncome()
+    {
+        signalGetOccupyTile.Dispatch(eCountry.A);
+
+        modelPlayer.COIN = modelPlayer.COIN + signalGetOccupyTile.OccupyTileCount * GameDef.PER_TILE_INCOME;
+    }
+
+
 
 
     private bool bTurnFlag = false;

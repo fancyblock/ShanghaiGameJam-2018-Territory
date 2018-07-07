@@ -22,6 +22,10 @@ public class MapMediator : Mediator
     public MapRefreshSignal signalMapRefresh { get; set; }
     [Inject]
     public PopupUISignal signalPopupUI { get; set; }
+    [Inject]
+    public GetOccupyTileSignal signalGetOccupyTile { get; set; }
+    [Inject]
+    public OccupyChangeSignal siganlOccupyChange { get; set; }
 
     private int curTileX, curTileY;
     private Troop curTroop;
@@ -34,6 +38,7 @@ public class MapMediator : Mediator
         signalStartup.AddListener(onGameStart);
         signalMakeTroop.AddListener(onMakeTroop);
         signalMapRefresh.AddListener(onMapRefresh);
+        signalGetOccupyTile.AddListener(onGetOccupyTile);
     }
 
     private void onMapRefresh()
@@ -53,7 +58,7 @@ public class MapMediator : Mediator
 
     public void onTapTile(int x, int y)
     {
-        if (noOperate || modelGame.UI_POPUP)
+        if (noOperate || modelGame.UI_POPUP || modelGame.gameStatus != eInGameStatus.ATurn)
             return;
 
         MapTile mt = view.GetTile(x, y);
@@ -103,7 +108,7 @@ public class MapMediator : Mediator
 
     public void onTapTroop(Troop troop)
     {
-        if (noOperate || modelGame.UI_POPUP)
+        if (noOperate || modelGame.UI_POPUP || modelGame.gameStatus != eInGameStatus.ATurn)
             return;
 
         if (troop.FINISH_ACTION)
@@ -122,6 +127,19 @@ public class MapMediator : Mediator
         troop.ShowOutline(true);
 
         curTroop = troop;
+    }
+
+    private void onGetOccupyTile(eCountry country)
+    {
+        int i = 0;
+
+        foreach(MapTile mt in view.mapTiles.Values)
+        {
+            if (mt.country == country)
+                i++;
+        }
+
+        signalGetOccupyTile.OccupyTileCount = i;
     }
 
 
@@ -168,19 +186,14 @@ public class MapMediator : Mediator
     {
         MapTile tile = null;
 
-        for(int i = 0; i < view.mapData.width; i++)
+        foreach( MapTile mt in view.mapTiles.Values)
         {
-            for(int j = 0; j < view.mapData.height; j++)
+            if (mt.type == eTileType.CrossLand)
             {
-                MapTile mt = view.GetTile(i, j);
-
-                if(mt != null && mt.type == eTileType.CrossLand)
+                if (mt.troop)
                 {
-                    if(mt.troop)
-                    {
-                        if (mt.country != mt.troop.country)
-                            tile = mt;
-                    }
+                    if (mt.country != mt.troop.country)
+                        tile = mt;
                 }
             }
         }
@@ -208,6 +221,8 @@ public class MapMediator : Mediator
         view.GetTile(x, y).troop = troop;
 
         noOperate = false;
+
+        siganlOccupyChange.Dispatch();
     }
 
     private void cancelSelectTroop(Troop troop)
@@ -221,8 +236,6 @@ public class MapMediator : Mediator
     // 建造单位
     private void onMakeTroop(eTroopType troopType)
     {
-        Debug.Log("make troop: " + troopType.ToString());
-
         int price = modelGame.GetTroopPrice(troopType);
 
         // 扣钱

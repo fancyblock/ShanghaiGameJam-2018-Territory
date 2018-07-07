@@ -13,14 +13,11 @@ public class GameModel
         switch (type)
         {
             case eTroopType.rock:
-                return 30;
-                break;
+                return GameDef.BASE_TROOP_COST;
             case eTroopType.paper:
-                return 50;
-                break;
+                return GameDef.BASE_TROOP_COST;
             case eTroopType.scissors:
-                return 70;
-                break;
+                return GameDef.BASE_TROOP_COST;
             default:
                 break;
         }

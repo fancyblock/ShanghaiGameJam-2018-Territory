@@ -16,3 +16,10 @@ public class ShowNofitySignal : Signal<string> { }
 public class GameStatusChangeSignal : Signal<eInGameStatus> { }
 
 public class MapRefreshSignal : Signal { }
+
+public class GetOccupyTileSignal : Signal<eCountry>
+{
+    public int OccupyTileCount { get; set; }
+}
+
+public class OccupyChangeSignal : Signal { }

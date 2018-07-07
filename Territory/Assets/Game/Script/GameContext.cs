@@ -27,6 +27,8 @@ public class GameContext : MVCSContext
         injectionBinder.Bind<ShowNofitySignal>().ToSingleton();
         injectionBinder.Bind<GameStatusChangeSignal>().ToSingleton();
         injectionBinder.Bind<MapRefreshSignal>().ToSingleton();
+        injectionBinder.Bind<GetOccupyTileSignal>().ToSingleton();
+        injectionBinder.Bind<OccupyChangeSignal>().ToSingleton();
     }
 
     protected override void addCoreComponents()
