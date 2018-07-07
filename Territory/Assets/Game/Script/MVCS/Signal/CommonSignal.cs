@@ -10,3 +10,5 @@ public class PopupUISignal : Signal<eUI> { }
 public class MakeTroopSignal : Signal<eTroopType> { }
 
 public class EndTurnSignal : Signal<bool> { }
+
+public class ShowNofitySignal : Signal<string> { }

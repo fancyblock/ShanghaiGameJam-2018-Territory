@@ -24,6 +24,7 @@ public class GameContext : MVCSContext
         injectionBinder.Bind<PopupUISignal>().ToSingleton();
         injectionBinder.Bind<MakeTroopSignal>().ToSingleton();
         injectionBinder.Bind<EndTurnSignal>().ToSingleton();
+        injectionBinder.Bind<ShowNofitySignal>().ToSingleton();
     }
 
     protected override void addCoreComponents()

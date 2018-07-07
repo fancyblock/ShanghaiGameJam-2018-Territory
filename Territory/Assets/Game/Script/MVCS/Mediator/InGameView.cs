@@ -23,13 +23,7 @@ public class InGameView : BaseView
     {
         Debug.Log("end my turn");
 
-        //TODO 
-
-        modelGame.gameStatus = eInGameStatus.BTurn;
-
         signalEndTurn.Dispatch(true);
-
-        ShowNotify("回合结束");
     }
 
 

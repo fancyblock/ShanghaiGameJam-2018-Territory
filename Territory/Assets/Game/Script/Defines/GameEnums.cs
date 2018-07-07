@@ -20,4 +20,5 @@ public enum eInGameStatus
 {
     ATurn,
     BTurn,
+    Trans,
 }

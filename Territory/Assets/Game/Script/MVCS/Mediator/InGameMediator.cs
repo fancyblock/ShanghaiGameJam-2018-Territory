@@ -1,4 +1,5 @@
-﻿using strange.extensions.mediation.impl;
+﻿using System;
+using strange.extensions.mediation.impl;
 
 
 public class InGameMediator : Mediator
@@ -9,13 +10,20 @@ public class InGameMediator : Mediator
     public FrameSignal signalFrame { get; set; }
     [Inject]
     public GameModel modelGame { get; set; }
+    [Inject]
+    public ShowNofitySignal signalShowNotify { get; set; }
 
 
     override public void OnRegister()
     {
         signalFrame.AddListener(onFrame);
+        signalShowNotify.AddListener(onShowNotify);
     }
 
+    private void onShowNotify(string obj)
+    {
+        view.ShowNotify(obj);
+    }
 
     private void onFrame()
     {
@@ -32,6 +40,13 @@ public class InGameMediator : Mediator
             view.BTurnBg.SetActive(true);
 
             view.txtTitle.text = "敌军回合";
+        }
+        else if(modelGame.gameStatus == eInGameStatus.Trans)
+        {
+            view.ATurnBg.SetActive(false);
+            view.BTurnBg.SetActive(false);
+
+            view.txtTitle.text = "攻守交换";
         }
     }
 }
