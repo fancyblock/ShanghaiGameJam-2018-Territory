@@ -120,22 +120,8 @@ public class MapView : View
         }
     }
 
-    public void MakeTroop(eTroopType troopType)
-    {
-        Debug.Log("make troop: " + troopType.ToString());
 
-        int price = modelGame.GetTroopPrice(troopType);
-
-        // 扣钱
-        modelPlayer.COIN = modelPlayer.COIN - price;
-        // 建造部队
-        makeTroop(troopType, curTileX, curTileY);
-
-        modelGame.MakeFinishAction(curTileX, curTileY);
-    }
-
-
-    private void makeTroop(eTroopType type, int x, int y)
+    public void MakeTroop(eTroopType type, int x, int y)
     {
         TroopInfo ti = troopData.GetTroopInfo(type, eCountry.A);
 
