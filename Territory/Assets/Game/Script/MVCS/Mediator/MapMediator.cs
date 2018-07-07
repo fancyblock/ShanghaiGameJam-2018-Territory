@@ -82,16 +82,22 @@ public class MapMediator : Mediator
             }
         }
         // 建造部队
-        else if (mt.country == eCountry.A && 
-                (mt.type == eTileType.FactoryLand || mt.type == eTileType.CoreLand))
+        else if (mt.country == eCountry.A && (mt.type == eTileType.FactoryLand || mt.type == eTileType.CoreLand))
         {
-            if (view.GetTile(x, y).troop)       // 上面有部队
+            if (mt.troop)       // 上面有部队
+            {
+                onTapTroop(mt.troop);
                 return;
+            }
 
             curTileX = x;
             curTileY = y;
 
             signalPopupUI.Dispatch(eUI.MakeTroop);
+        }
+        else if(mt.troop)
+        {
+            onTapTroop(mt.troop);
         }
     }
 
@@ -187,11 +193,19 @@ public class MapMediator : Mediator
     {
         noOperate = true;
 
-        view.ChangeTile(tile.x, tile.y, tile.troop.country);
+        int x = tile.x;
+        int y = tile.y;
+        Troop troop = tile.troop;
 
-        ///////////////////////////////////<
+        view.PlayCloudAnim(x, y);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
+
+        view.ChangeTile(x, y, troop.country);
+
+        yield return new WaitForSeconds(1.0f);
+
+        view.GetTile(x, y).troop = troop;
 
         noOperate = false;
     }

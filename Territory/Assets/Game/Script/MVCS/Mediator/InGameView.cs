@@ -37,10 +37,10 @@ public class InGameView : BaseView
 
     private IEnumerator showingNotify()
     {
-        TweenPosition.Begin(notifyBg, 0.2f, Vector3.zero).from = new Vector2(-1200,0);
+        TweenPosition.Begin(notifyBg, 0.16f, Vector3.zero).from = new Vector2(-1200,0);
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.7f);
 
-        TweenPosition.Begin(notifyBg, 0.2f, new Vector2(1200,0));
+        TweenPosition.Begin(notifyBg, 0.16f, new Vector2(1200,0));
     }
 }

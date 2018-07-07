@@ -9,7 +9,7 @@ public class TileData : ScriptableObject
     public List<TileInfo> tileList;
 
 
-    public GameObject GetTilePrefab(eTileType type, eCountry country)
+    public GameObject GetTilePrefab(eCountry country)
     {
         // 只按照阵营划分
         foreach(TileInfo ti in tileList)

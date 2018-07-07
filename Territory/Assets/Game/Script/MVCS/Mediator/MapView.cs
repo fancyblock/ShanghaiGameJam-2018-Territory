@@ -3,13 +3,15 @@ using strange.extensions.mediation.impl;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
-
+using System.Collections;
 
 public class MapView : View
 {
     public MapData mapData;
     public TileData tileData;
     public TroopData troopData;
+
+    public AnimatorPlayer animCloud;
 
     public Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
 
@@ -24,37 +26,7 @@ public class MapView : View
 
                 if(mapTileData.type != eTileType.None)
                 {
-                    GameObject go = Instantiate(tileData.GetTilePrefab(mapTileData.type, mapTileData.initCountry), transform);
-                    go.name = "tile_"+ i + "_" + j;
-                    go.transform.localScale = Vector3.one;
-                    go.transform.localPosition = GridToPosition(i, j);
-
-                    MapTile tile = go.GetComponent<MapTile>();
-                    tile.type = mapTileData.type;
-                    tile.country = mapTileData.initCountry;
-
-                    tile.SetOrder(getTileOrder(i, j));
-                    
-                    tile.SetTile(i, j);
-                    tile.SetTapCallback(onTapTile);
-
-                    mapTiles.Add(i + "_" + j, tile);
-
-                    if(mapTileData.type == eTileType.CoreLand)
-                    {
-                        if(mapTileData.initCountry == eCountry.A)
-                        {
-                            go = Instantiate(Resources.Load<GameObject>("baseA"), transform);
-                            go.transform.localPosition = GridToPosition(i, j);
-                            go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
-                        }
-                        else if(mapTileData.initCountry == eCountry.B)
-                        {
-                            go = Instantiate(Resources.Load<GameObject>("baseB"), transform);
-                            go.transform.localPosition = GridToPosition(i, j);
-                            go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
-                        }
-                    }
+                    createTile(i, j, mapTileData.initCountry, mapTileData);
                 }
             }
         }
@@ -62,7 +34,62 @@ public class MapView : View
 
     public void ChangeTile(int x, int y, eCountry country)
     {
-        //TODO 
+        Destroy(GetTile(x, y).gameObject);
+
+        MapTileData mapTileData = mapData.tiles[getTileIndex(x, y)];
+        createTile(x, y, country, mapTileData);
+    }
+
+    private void createTile(int x, int y, eCountry country, MapTileData mapTileData)
+    {
+        GameObject go = Instantiate(tileData.GetTilePrefab(country), transform);
+        go.name = "tile_" + x + "_" + y;
+        go.transform.localScale = Vector3.one;
+        go.transform.localPosition = GridToPosition(x, y);
+
+        MapTile tile = go.GetComponent<MapTile>();
+        tile.type = mapTileData.type;
+        tile.country = country;
+
+        tile.SetOrder(getTileOrder(x, y));
+
+        tile.SetTile(x, y);
+        tile.SetTapCallback(onTapTile);
+
+        mapTiles[x + "_" + y] = tile;
+
+        if (mapTileData.type == eTileType.CoreLand)
+        {
+            if (mapTileData.initCountry == eCountry.A)
+            {
+                go = Instantiate(Resources.Load<GameObject>("baseA"), transform);
+                go.transform.localPosition = GridToPosition(x, y);
+                go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(x, y);
+            }
+            else if (mapTileData.initCountry == eCountry.B)
+            {
+                go = Instantiate(Resources.Load<GameObject>("baseB"), transform);
+                go.transform.localPosition = GridToPosition(x, y);
+                go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(x, y);
+            }
+        }
+    }
+
+    public void PlayCloudAnim(int x, int y)
+    {
+        animCloud.transform.localPosition = GridToPosition(x, y);
+        animCloud.gameObject.SetActive(true);
+
+        StartCoroutine(playingAnim());
+    }
+
+    private IEnumerator playingAnim()
+    {
+        animCloud.Play("boom");
+
+        yield return new WaitForSeconds(2.0f);
+
+        animCloud.gameObject.SetActive(false);
     }
 
     public void ShowGridHint(int x, int y)

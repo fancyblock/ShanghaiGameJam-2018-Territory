@@ -39,7 +39,7 @@ public class Troop : MonoBehaviour
     /// <summary>
     /// 被点击
     /// </summary>
-    void OnMouseDown()
+    void OnMouseUpAsButton()
     {
         if (callback != null)
             callback(this);
