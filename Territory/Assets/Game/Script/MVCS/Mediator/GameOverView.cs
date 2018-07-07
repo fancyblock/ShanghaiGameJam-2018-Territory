@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameOverView : BaseView
 {
@@ -14,7 +14,7 @@ public class GameOverView : BaseView
     {
         Debug.Log("onHome");
 
-        //TODO 
+        SceneManager.LoadScene("Game");
     }
 
     public void onBack()

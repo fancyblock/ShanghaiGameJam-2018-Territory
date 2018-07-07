@@ -35,7 +35,7 @@ public class GameCtrlMediator : Mediator
 
         modelPlayer.COIN = GameDef.INIT_GOLD;
 
-        signalStartup.Dispatch();
+        //signalStartup.Dispatch();
     }
 
     /// <summary>
