@@ -1,5 +1,4 @@
-﻿using System;
-using strange.extensions.mediation.impl;
+﻿using strange.extensions.mediation.impl;
 
 
 public class InGameMediator : Mediator
@@ -32,7 +31,7 @@ public class InGameMediator : Mediator
             view.ATurnBg.SetActive(false);
             view.BTurnBg.SetActive(true);
 
-            //view.txtTitle
+            view.txtTitle.text = "敌军回合";
         }
     }
 }
