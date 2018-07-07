@@ -1,9 +1,10 @@
 ﻿using strange.extensions.mediation.impl;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 public class InGameMediator : Mediator
 {
+    override public void OnRegister()
+    {
+        //TODO 
+    }
 }
