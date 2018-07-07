@@ -18,6 +18,7 @@ public class GameContext : MVCSContext
         mediationBinder.Bind<MapView>().To<MapMediator>();
         mediationBinder.Bind<PanelMakeTroopView>().To<PanelMakeTroopMediator>();
         mediationBinder.Bind<InGameView>().To<InGameMediator>();
+        mediationBinder.Bind<AIView>().To<AIMediator>();
 
         injectionBinder.Bind<StartupSignal>().ToSingleton();
         injectionBinder.Bind<FrameSignal>().ToSingleton();

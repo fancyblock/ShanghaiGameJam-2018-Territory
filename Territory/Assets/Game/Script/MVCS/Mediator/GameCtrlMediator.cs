@@ -94,28 +94,9 @@ public class GameCtrlMediator : Mediator
         modelPlayer.COIN = modelPlayer.COIN + signalGetOccupyTile.OccupyTileCount * GameDef.PER_TILE_INCOME;
     }
 
-
-
-
-    private bool bTurnFlag = false;
-
     private void onFrame()
     {
         //TODO 
-
-        ///////////////////////////////////////////////////////[TEMP]
-        if (modelGame.gameStatus == eInGameStatus.BTurn && !bTurnFlag)
-        {
-            bTurnFlag = true;
-            StartCoroutine(___endBTurn());
-        }
-        ///////////////////////////////////////////
     }
 
-    private IEnumerator ___endBTurn()
-    {
-        yield return new WaitForSeconds(1.0f);
-        signalEndTurn.Dispatch(false);
-        bTurnFlag = false;
-    }
 }
