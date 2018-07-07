@@ -28,7 +28,9 @@ public class MapMediator : Mediator
     public OccupyChangeSignal siganlOccupyChange { get; set; }
     [Inject]
     public MoveTroopSignal signalMoveTroop { get; set; }
-    
+    [Inject]
+    public GameOverSignal signalGameOver { get; set; }
+
     private Troop curTroop;
 
     static public int curTileX, curTileY;
@@ -226,6 +228,37 @@ public class MapMediator : Mediator
         checkOccupy();
     }
 
+    // 检查游戏胜负
+    private void checkGameWin()
+    {
+        int aTroopCnt = 0;
+        int bTroopCnt = 0;
+
+        foreach(MapTile mt in modelGame.mapTiles.Values)
+        {
+            if(mt.troop)
+            {
+                if (mt.troop.country == eCountry.A)
+                    aTroopCnt++;
+                else if (mt.troop.country == eCountry.B)
+                    bTroopCnt++;
+            }
+        }
+
+        if (aTroopCnt == 0 && bTroopCnt > 0)
+        {
+            signalGameOver.Dispatch(eCountry.B);
+
+            noOperate = true;
+        }
+        else if(bTroopCnt == 0 && aTroopCnt > 0)
+        {
+            signalGameOver.Dispatch(eCountry.A);
+
+            noOperate = true;
+        }
+    }
+
     // 判断胜负 
     private Troop getWinner(Troop t1, Troop t2)
     {
@@ -326,6 +359,8 @@ public class MapMediator : Mediator
 
         if (tile)
             StartCoroutine(occupyingTile(tile));
+        else
+            checkGameWin();
     }
 
     private IEnumerator occupyingTile(MapTile tile)
@@ -349,6 +384,8 @@ public class MapMediator : Mediator
         noOperate = false;
 
         siganlOccupyChange.Dispatch();
+
+        checkGameWin();
     }
 
     private void cancelSelectTroop(Troop troop)

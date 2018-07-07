@@ -20,6 +20,7 @@ public class GameContext : MVCSContext
         mediationBinder.Bind<InGameView>().To<InGameMediator>();
         mediationBinder.Bind<AIView>().To<AIMediator>();
         mediationBinder.Bind<InfoView>().To<InfoMediator>();
+        mediationBinder.Bind<GameOverView>().To<GameOverMediator>();
 
         injectionBinder.Bind<StartupSignal>().ToSingleton();
         injectionBinder.Bind<FrameSignal>().ToSingleton();
@@ -32,6 +33,7 @@ public class GameContext : MVCSContext
         injectionBinder.Bind<GetOccupyTileSignal>().ToSingleton();
         injectionBinder.Bind<OccupyChangeSignal>().ToSingleton();
         injectionBinder.Bind<MoveTroopSignal>().ToSingleton();
+        injectionBinder.Bind<GameOverSignal>().ToSingleton();
     }
 
     protected override void addCoreComponents()

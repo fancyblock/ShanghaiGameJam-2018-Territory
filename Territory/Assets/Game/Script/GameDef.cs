@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameDef
 {
-    public const int INIT_GOLD = 100;
+    public const int INIT_GOLD = 50;
 
     public const int PER_TILE_INCOME = 10;
 
