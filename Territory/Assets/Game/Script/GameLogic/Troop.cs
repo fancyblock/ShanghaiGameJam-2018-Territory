@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
+using System;
 
 
 public class Troop : MonoBehaviour
@@ -7,34 +8,27 @@ public class Troop : MonoBehaviour
     public eTroopType type;
     public eCountry country;
     public SortingGroup sortingGroup;
+    public int x;
+    public int y;
 
     public GameObject flagFinishAct;
 
     private bool finishAct = false;
+    private Action<Troop> callback;
 
 
-	// Use this for initialization
-	void Start ()
+    public void SetTapCallback(Action<Troop> callback)
     {
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {	
-	}
+        this.callback = callback;
+    }
 
     /// <summary>
     /// 被点击
     /// </summary>
     void OnMouseDown()
     {
-        if (finishAct)
-            return;
-
-        //TODO 
-
-        //////////////////
-        FINISH_ACTION = true;
+        if (callback != null)
+            callback(this);
     }
 
     public bool FINISH_ACTION

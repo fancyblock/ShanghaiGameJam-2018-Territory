@@ -1,5 +1,7 @@
-﻿using strange.extensions.mediation.impl;
+﻿using System;
+using strange.extensions.mediation.impl;
 using UnityEngine;
+using System.Collections.Generic;
 
 
 public class MapView : View
@@ -17,6 +19,8 @@ public class MapView : View
     public TroopData troopData;
 
     public int curTileX, curTileY;
+
+    private Dictionary<string, MapTile> mapTiles = new Dictionary<string, MapTile>();
 
 
     public void CreateMap()
@@ -44,6 +48,8 @@ public class MapView : View
                     MapTile tile = go.AddComponent<MapTile>();
                     tile.SetTile(i, j);
                     tile.SetTapCallback(onTapTile);
+
+                    mapTiles.Add(i + "_" + j, tile);
                 }
             }
         }
@@ -109,6 +115,26 @@ public class MapView : View
 
 
     private void makeTroop(eTroopType type, int x, int y)
+    {
+        TroopInfo ti = troopData.GetTroopInfo(type, eCountry.A);
+
+        GameObject troopGo = Instantiate(ti.prefab, transform);
+        troopGo.transform.localPosition = grid2position(x, y);
+
+        Troop t = troopGo.GetComponent<Troop>();
+        t.type = type;
+        t.country = eCountry.A;
+        t.x = x;
+        t.y = y;
+
+        t.SetTapCallback(onTapTroop);
+
+        t.FINISH_ACTION = true;
+
+        mapTiles[x + "_" + y].troop = t;
+    }
+
+    private void onTapTroop(Troop troop)
     {
         //TODO 
     }

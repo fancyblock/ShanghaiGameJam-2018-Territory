@@ -7,6 +7,18 @@ using System.Collections.Generic;
 public class TroopData :  ScriptableObject
 {
     public List<TroopInfo> troopList;
+
+
+    public TroopInfo GetTroopInfo(eTroopType type, eCountry country)
+    {
+        foreach(TroopInfo ti in troopList)
+        {
+            if (ti.type == type && ti.country == country)
+                return ti;
+        }
+
+        return null;
+    }
 }
 
 

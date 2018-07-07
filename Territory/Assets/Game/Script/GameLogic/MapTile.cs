@@ -7,6 +7,8 @@ public class MapTile : MonoBehaviour
     private int x, y;
     private Action<int, int> callback;
 
+    public Troop troop { get; set; }
+
 
     void OnMouseUpAsButton()
     {
