@@ -11,6 +11,9 @@ public class GameContext : MVCSContext
 
     protected override void mapBindings()
     {
+        injectionBinder.Bind<PlayerModel>().ToSingleton();
+        injectionBinder.Bind<GameModel>().ToSingleton();
+
         mediationBinder.Bind<GameCtrlView>().To<GameCtrlMediator>();
         mediationBinder.Bind<MapView>().To<MapMediator>();
         mediationBinder.Bind<PanelMakeTroopView>().To<PanelMakeTroopMediator>();
@@ -18,6 +21,7 @@ public class GameContext : MVCSContext
         injectionBinder.Bind<StartupSignal>().ToSingleton();
         injectionBinder.Bind<FrameSignal>().ToSingleton();
         injectionBinder.Bind<PopupUISignal>().ToSingleton();
+        injectionBinder.Bind<MakeTroopSignal>().ToSingleton();
     }
 
     protected override void addCoreComponents()

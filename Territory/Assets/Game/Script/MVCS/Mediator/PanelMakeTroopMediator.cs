@@ -1,13 +1,16 @@
 ﻿using strange.extensions.mediation.impl;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+
 
 public class PanelMakeTroopMediator : Mediator
 {
     [Inject]
+    public PanelMakeTroopView m_view { get; set; }
+    [Inject]
+    public PlayerModel modelPlayer { get; set; }
+    [Inject]
     public PopupUISignal signalPopupUI { get; set; }
+    [Inject]
+    public GameModel modelGame { get; set; }
 
 
     override public void OnRegister()
@@ -22,7 +25,10 @@ public class PanelMakeTroopMediator : Mediator
     {
         if (ui == eUI.MakeTroop)
         {
-            //TODO 
+            m_view.txtCurCoin.text = "当前国库：" + modelPlayer.COIN;
+            m_view.txtPriceTroop1.text = "造价：" + modelGame.GetTroopPrice(eTroopType.scissors);
+            m_view.txtPriceTroop2.text = "造价：" + modelGame.GetTroopPrice(eTroopType.rock);
+            m_view.txtPriceTroop3.text = "造价：" + modelGame.GetTroopPrice(eTroopType.paper);
 
             gameObject.SetActive(true);
         }

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 
 public enum eCountry
 {
@@ -9,3 +6,12 @@ public enum eCountry
     B,
     Free,
 }
+
+
+public enum eTroopType
+{
+    rock,
+    paper,
+    scissors
+}
+

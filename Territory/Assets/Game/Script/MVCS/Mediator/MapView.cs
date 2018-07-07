@@ -1,5 +1,4 @@
 ﻿using strange.extensions.mediation.impl;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,6 +10,8 @@ public class MapView : View
 
     public MapData mapData;
     public TileData tileData;
+
+    public int curTileX, curTileY;
 
 
     public void CreateMap()
@@ -68,6 +69,9 @@ public class MapView : View
 
         if(mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
         {
+            curTileX = x;
+            curTileY = y;
+
             signalPopupUI.Dispatch(eUI.MakeTroop);
         }
     }

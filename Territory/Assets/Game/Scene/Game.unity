@@ -269,6 +269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapData: {fileID: 11400000, guid: 6365b2e824b3d9e4fa9903e418471fa1, type: 2}
   tileData: {fileID: 11400000, guid: a3342bc7ca6282b4eb5110d17e925f91, type: 2}
+  curTileX: 0
+  curTileY: 0
 --- !u!4 &554729840
 Transform:
   m_ObjectHideFlags: 0
@@ -472,10 +474,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1758954980543140, guid: e209385b385d1e34cbb48c2370e28ac2, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e209385b385d1e34cbb48c2370e28ac2, type: 2}
