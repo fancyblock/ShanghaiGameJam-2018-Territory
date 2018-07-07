@@ -5,5 +5,21 @@ using UnityEngine;
 
 public class PlayerModel
 {
-    public int COIN { get; set; }
+    private int coin;
+
+
+    public int COIN
+    {
+        get
+        {
+            return coin;
+        }
+        set
+        {
+            coin = value;
+
+            // 通知钱变更
+        }
+    }
+
 }

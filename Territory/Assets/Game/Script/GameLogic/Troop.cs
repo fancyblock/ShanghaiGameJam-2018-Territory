@@ -4,6 +4,8 @@ using UnityEngine.Rendering;
 
 public class Troop : MonoBehaviour
 {
+    public eTroopType type;
+    public eCountry country;
     public SortingGroup sortingGroup;
 
     public GameObject flagFinishAct;

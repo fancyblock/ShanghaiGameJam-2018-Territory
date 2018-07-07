@@ -24,8 +24,9 @@ public class MapMediator : Mediator
         view.CreateMap();
     }
 
+    // 建造单位
     private void onMakeTroop(eTroopType troopType)
     {
-        //TODO 
+        view.MakeTroop(troopType);
     }
 }

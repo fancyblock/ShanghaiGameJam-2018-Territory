@@ -8,10 +8,13 @@ public class MapView : View
     public PopupUISignal signalPopupUI { get; set; }
     [Inject]
     public GameModel modelGame { get; set; }
+    [Inject]
+    public PlayerModel modelPlayer { get; set; }
 
 
     public MapData mapData;
     public TileData tileData;
+    public TroopData troopData;
 
     public int curTileX, curTileY;
 
@@ -29,7 +32,7 @@ public class MapView : View
                     GameObject go = new GameObject("tile_"+ i + "_" + j);
                     go.transform.parent = transform;
                     go.transform.localScale = Vector3.one;
-                    go.transform.localPosition = new Vector2(i*mapData.tileWidth/2.0f + j*mapData.tileWidth/2.0f, -i*mapData.tileHeight/2.0f + j*mapData.tileHeight/2.0f);
+                    go.transform.localPosition = grid2position(i, j);
                     go.layer = gameObject.layer;
 
                     SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
@@ -46,6 +49,11 @@ public class MapView : View
         }
     }
 
+
+    private Vector2 grid2position(int x, int y)
+    {
+        return new Vector2(x * mapData.tileWidth / 2.0f + y * mapData.tileWidth / 2.0f, -x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+    }
 
     private int getTileOrder(int x, int y)
     {
@@ -72,12 +80,36 @@ public class MapView : View
         if(mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
         {
             if (modelGame.IsFinishAction(x, y))     // 该回合已完成行动
+            {
+                // 弹框说明或显示正在建造中单位信息？
+
                 return;
+            }
 
             curTileX = x;
             curTileY = y;
 
             signalPopupUI.Dispatch(eUI.MakeTroop);
         }
+    }
+
+    public void MakeTroop(eTroopType troopType)
+    {
+        Debug.Log("make troop: " + troopType.ToString());
+
+        int price = modelGame.GetTroopPrice(troopType);
+
+        // 扣钱
+        modelPlayer.COIN = modelPlayer.COIN - price;
+        // 建造部队
+        makeTroop(troopType, curTileX, curTileY);
+
+        modelGame.MakeFinishAction(curTileX, curTileY);
+    }
+
+
+    private void makeTroop(eTroopType type, int x, int y)
+    {
+        //TODO 
     }
 }

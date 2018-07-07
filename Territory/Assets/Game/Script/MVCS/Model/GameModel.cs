@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GameModel
 {
+    private HashSet<string> finishActTiles = new HashSet<string>();
+
+
     public int GetTroopPrice(eTroopType type)
     {
         switch (type)
@@ -27,8 +30,11 @@ public class GameModel
 
     public bool IsFinishAction(int x, int y)
     {
-        //TODO
+        return finishActTiles.Contains(x + "_" + y);
+    }
 
-        return false;
+    public void MakeFinishAction(int x, int y)
+    {
+        finishActTiles.Add(x + "_" + y);
     }
 }

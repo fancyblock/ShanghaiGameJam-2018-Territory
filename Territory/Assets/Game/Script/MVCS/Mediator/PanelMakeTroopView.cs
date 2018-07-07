@@ -24,6 +24,8 @@ public class PanelMakeTroopView : BaseView
         {
             signalMakeTroop.Dispatch(eTroopType.scissors);
             Debug.Log("make troop1");
+
+            onClose();
         }
     }
 
@@ -33,6 +35,8 @@ public class PanelMakeTroopView : BaseView
         {
             signalMakeTroop.Dispatch(eTroopType.rock);
             Debug.Log("make troop2");
+
+            onClose();
         }
     }
 
@@ -42,6 +46,8 @@ public class PanelMakeTroopView : BaseView
         {
             signalMakeTroop.Dispatch(eTroopType.paper);
             Debug.Log("make troop3");
+
+            onClose();
         }
     }
 }

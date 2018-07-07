@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4c9a3474adc9e4ba82b804b044ca91, type: 3}
+  m_Name: TroopData
+  m_EditorClassIdentifier: 
+  troopList:
+  - type: 0
+    country: 0
+    prefab: {fileID: 1594152673610652, guid: 546dd8eb1f73ec747a3d9dfceb4eea73, type: 2}
+  - type: 1
+    country: 0
+    prefab: {fileID: 1499938188734322, guid: e2e9153109e0aaf46a74ad540b5c4081, type: 2}
+  - type: 2
+    country: 0
+    prefab: {fileID: 1924513864912150, guid: 11aeff6bc09c87748a9bcf03f032b7cf, type: 2}
+  - type: 0
+    country: 1
+    prefab: {fileID: 1451998498315108, guid: 6ed94d6480d4f444fac93d428026efb7, type: 2}
+  - type: 1
+    country: 1
+    prefab: {fileID: 1544896139397734, guid: 5c9a360cea4cc934686d9296aa69dcf7, type: 2}
+  - type: 2
+    country: 1
+    prefab: {fileID: 1556847722269372, guid: b070bdba7209d874f9a2a4df8d41059d, type: 2}
