@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.UI;
+
 
 public class PanelMakeTroopView : BaseView
 {
@@ -8,7 +10,10 @@ public class PanelMakeTroopView : BaseView
     public Text txtPriceTroop1;
     public Text txtPriceTroop2;
     public Text txtPriceTroop3;
-    //TODO 
+
+    public Toggle troop1;
+    public Toggle troop2;
+    public Toggle troop3;
 
     [Inject]
     public PlayerModel modelPlayer { get; set; }
@@ -19,52 +24,9 @@ public class PanelMakeTroopView : BaseView
     public MakeTroopSignal signalMakeTroop { get; set; }
 
 
-    public void onMakeTroop1()
+    public void onSelectChange()
     {
-        int price = modelGame.GetTroopPrice(eTroopType.scissors);
-
-        if (modelPlayer.COIN >= price)
-        {
-            // 扣钱
-            modelPlayer.COIN = modelPlayer.COIN - price;
-
-            signalMakeTroop.Dispatch(eTroopType.scissors, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
-            Debug.Log("make troop1");
-
-            onClose();
-        }
-    }
-
-    public void onMakeTroop2()
-    {
-        int price = modelGame.GetTroopPrice(eTroopType.rock);
-
-        if (modelPlayer.COIN >= price)
-        {
-            // 扣钱
-            modelPlayer.COIN = modelPlayer.COIN - price;
-
-            signalMakeTroop.Dispatch(eTroopType.rock, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
-            Debug.Log("make troop2");
-
-            onClose();
-        }
-    }
-
-    public void onMakeTroop3()
-    {
-        int price = modelGame.GetTroopPrice(eTroopType.paper);
-
-        if (modelPlayer.COIN >= modelGame.GetTroopPrice(eTroopType.paper))
-        {
-            // 扣钱
-            modelPlayer.COIN = modelPlayer.COIN - price;
-
-            signalMakeTroop.Dispatch(eTroopType.paper, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
-            Debug.Log("make troop3");
-
-            onClose();
-        }
+        //TODO 
     }
 
     /// <summary>
@@ -74,6 +36,50 @@ public class PanelMakeTroopView : BaseView
     {
         Debug.Log("PanelMakeTroopView: onConfirm");
 
-        //TODO 
+        if(troop1.isOn)
+        {
+            int price = modelGame.GetTroopPrice(eTroopType.scissors);
+
+            if (modelPlayer.COIN >= price)
+            {
+                // 扣钱
+                modelPlayer.COIN = modelPlayer.COIN - price;
+
+                signalMakeTroop.Dispatch(eTroopType.scissors, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
+                Debug.Log("make troop1");
+
+                onClose();
+            }
+        }
+        else if(troop2.isOn)
+        {
+            int price = modelGame.GetTroopPrice(eTroopType.rock);
+
+            if (modelPlayer.COIN >= price)
+            {
+                // 扣钱
+                modelPlayer.COIN = modelPlayer.COIN - price;
+
+                signalMakeTroop.Dispatch(eTroopType.rock, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
+                Debug.Log("make troop2");
+
+                onClose();
+            }
+        }
+        else if(troop3.isOn)
+        {
+            int price = modelGame.GetTroopPrice(eTroopType.paper);
+
+            if (modelPlayer.COIN >= price)
+            {
+                // 扣钱
+                modelPlayer.COIN = modelPlayer.COIN - price;
+
+                signalMakeTroop.Dispatch(eTroopType.paper, eCountry.A, MapMediator.curTileX, MapMediator.curTileY);
+                Debug.Log("make troop3");
+
+                onClose();
+            }
+        }
     }
 }
