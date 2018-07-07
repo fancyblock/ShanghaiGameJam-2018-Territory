@@ -15,3 +15,9 @@ public enum eTroopType
     scissors
 }
 
+
+public enum eInGameStatus
+{
+    ATurn,
+    BTurn,
+}

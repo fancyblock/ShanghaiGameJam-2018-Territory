@@ -2,7 +2,7 @@
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine.Rendering;
 
 public class MapView : View
 {
@@ -50,6 +50,22 @@ public class MapView : View
                     tile.SetTapCallback(onTapTile);
 
                     mapTiles.Add(i + "_" + j, tile);
+
+                    if(mapTileData.type == eTileType.CoreLand)
+                    {
+                        if(mapTileData.initCountry == eCountry.A)
+                        {
+                            go = Instantiate(Resources.Load<GameObject>("baseA"), transform);
+                            go.transform.localPosition = grid2position(i, j);
+                            go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
+                        }
+                        else if(mapTileData.initCountry == eCountry.B)
+                        {
+                            go = Instantiate(Resources.Load<GameObject>("baseB"), transform);
+                            go.transform.localPosition = grid2position(i, j);
+                            go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
+                        }
+                    }
                 }
             }
         }
@@ -64,6 +80,11 @@ public class MapView : View
     private int getTileOrder(int x, int y)
     {
         return 100 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+    }
+
+    private int getTroopOrder(int x, int y)
+    {
+        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f) + 2;
     }
 
     private int getObjOrder(int x, int y)
@@ -128,6 +149,7 @@ public class MapView : View
         t.y = y;
 
         t.SetTapCallback(onTapTroop);
+        t.sortingGroup.sortingOrder = getTroopOrder(x, y);
 
         t.FINISH_ACTION = true;
 
