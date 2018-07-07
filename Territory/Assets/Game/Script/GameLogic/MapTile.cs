@@ -1,13 +1,22 @@
 ﻿using System;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 
 public class MapTile : MonoBehaviour
 {
+    public GameObject fobiden;
+    public GameObject move;
+    public GameObject attack;
+
     private int x, y;
     private Action<int, int> callback;
 
     public Troop troop { get; set; }
+
+    public void SetOrder(int order)
+    {
+        GetComponent<SortingGroup>().sortingOrder = order;
+    }
 
 
     void OnMouseUpAsButton()

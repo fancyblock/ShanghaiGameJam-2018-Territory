@@ -24,19 +24,14 @@ public class MapView : View
 
                 if(mapTileData.type != eTileType.None)
                 {
-                    GameObject go = new GameObject("tile_"+ i + "_" + j);
-                    go.transform.parent = transform;
+                    GameObject go = Instantiate(tileData.GetTilePrefab(mapTileData.type, mapTileData.initCountry), transform);
+                    go.name = "tile_"+ i + "_" + j;
                     go.transform.localScale = Vector3.one;
                     go.transform.localPosition = grid2position(i, j);
-                    go.layer = gameObject.layer;
-
-                    SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-                    sr.sprite = tileData.GetTileSprite(mapTileData.type, mapTileData.initCountry);
-                    sr.sortingOrder = getTileOrder(i, j);
-
-                    go.AddComponent<PolygonCollider2D>();
 
                     MapTile tile = go.AddComponent<MapTile>();
+                    tile.SetOrder(getTileOrder(i, j));
+                    
                     tile.SetTile(i, j);
                     tile.SetTapCallback(onTapTile);
 

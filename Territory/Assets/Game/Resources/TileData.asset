@@ -14,7 +14,7 @@ MonoBehaviour:
   tileList:
   - type: 1
     country: 0
-    sprite: {fileID: 21300000, guid: b5218de90683e2846be699aebe31785a, type: 3}
+    prefab: {fileID: 1338578902387548, guid: ab540aa1e93418442854e4993b7ebfb0, type: 2}
   - type: 1
     country: 1
-    sprite: {fileID: 21300000, guid: bb1c2bd581cdfad48b92f30e2e305f4a, type: 3}
+    prefab: {fileID: 1675712674600134, guid: aae4d23577b546c48a1e1156b09210c6, type: 2}

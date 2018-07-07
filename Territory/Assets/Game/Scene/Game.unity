@@ -372,8 +372,6 @@ MonoBehaviour:
   mapData: {fileID: 11400000, guid: 6365b2e824b3d9e4fa9903e418471fa1, type: 2}
   tileData: {fileID: 11400000, guid: a3342bc7ca6282b4eb5110d17e925f91, type: 2}
   troopData: {fileID: 11400000, guid: ef7a44e6ba6aa16409c8be2dfdf8327d, type: 2}
-  curTileX: 0
-  curTileY: 0
 --- !u!4 &554729840
 Transform:
   m_ObjectHideFlags: 0
