@@ -54,6 +54,19 @@ public class MapMediator : Mediator
             if (tile.troop)
                 tile.troop.FINISH_ACTION = false;
         }
+
+        // 随机事件
+        if(UnityEngine.Random.value < GameDef.EVENT_APPEAR_RATE)
+        {
+            if(UnityEngine.Random.value < GameDef.LIGHT_RATE)
+            {
+                showLight();
+            }
+            else if(UnityEngine.Random.value < GameDef.BOUNS_RATE)
+            {
+                showBouns();
+            }
+        }
     }
 
     private void onGameStart()
@@ -154,6 +167,49 @@ public class MapMediator : Mediator
         }
 
         signalGetOccupyTile.OccupyTileCount = i;
+    }
+
+    // 闪电
+    private void showLight()
+    {
+        StartCoroutine(showingLight());
+    }
+
+    private IEnumerator showingLight()
+    {
+        noOperate = true;
+
+        yield return new WaitForSeconds(0.1f);
+
+        view.PlayLightAnim();
+
+        yield return new WaitForSeconds(0.7f);
+
+        foreach (MapTile mt in modelGame.mapTiles.Values)
+        {
+            if (mt.type == eTileType.CrossLand)
+            {
+                if (mt.troop)
+                {
+                    Destroy(mt.troop.gameObject);
+                    mt.troop = null;
+
+                    break;
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        noOperate = false;
+
+        checkGameWin();
+    }
+
+    // 额外奖励
+    private void showBouns()
+    {
+        //TODO 
     }
 
 
