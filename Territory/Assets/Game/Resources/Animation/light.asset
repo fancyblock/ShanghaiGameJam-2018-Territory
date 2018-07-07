@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5df93a33b8d3a419427c462b31d798, type: 3}
+  m_Name: light
+  m_EditorClassIdentifier: 
+  m_clipName: light
+  m_interval: 0.1
+  m_frames:
+  - {fileID: 21300000, guid: 44458bcada1c4f141b156ff3b0a86400, type: 3}
+  - {fileID: 21300000, guid: 2b4a0e541af97d94cb137375e97248ce, type: 3}
+  - {fileID: 21300000, guid: dab9f9e595a8a7947ae1cc5099538aee, type: 3}
+  - {fileID: 21300000, guid: 5726d02d34011f34d88a47a1495cdea6, type: 3}
+  - {fileID: 21300000, guid: 803cfaaa707ffec4cb30a1414aef1c9f, type: 3}
+  - {fileID: 21300000, guid: c291422ad829a8747a0420333142a7fe, type: 3}
+  - {fileID: 21300000, guid: f19e69dfcceab5a479daaf7a994461d2, type: 3}
+  - {fileID: 21300000, guid: 5ea8e18a6b4c7274dbdc6f7cc2b94b3e, type: 3}
+  - {fileID: 21300000, guid: 6c8ae587ef10c5b41b770f6a42f150dd, type: 3}

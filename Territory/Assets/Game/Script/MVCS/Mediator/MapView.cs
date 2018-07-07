@@ -13,6 +13,7 @@ public class MapView : View
     public TroopData troopData;
 
     public AnimatorPlayer animCloud;
+    public AnimatorPlayer animLight;
 
 
     public void CreateMap()
@@ -80,6 +81,22 @@ public class MapView : View
         animCloud.gameObject.SetActive(true);
 
         StartCoroutine(playingAnim());
+    }
+
+    public void PlayLightAnim()
+    {
+        animLight.gameObject.SetActive(true);
+
+        StartCoroutine(playingLight());
+    }
+
+    private IEnumerator playingLight()
+    {
+        animLight.Play("light");
+
+        yield return new WaitForSeconds(0.9f);
+
+        animLight.gameObject.SetActive(false);
     }
 
     private IEnumerator playingAnim()
