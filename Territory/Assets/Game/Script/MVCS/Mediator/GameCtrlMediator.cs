@@ -4,16 +4,16 @@
 public class GameCtrlMediator : Mediator
 {
     [Inject]
-    public FrameSignal m_signalFrame { get; set; }
+    public FrameSignal signalFrame { get; set; }
     [Inject]
-    public StartupSignal m_signalStartup { get; set; }
+    public StartupSignal signalStartup { get; set; }
 
 
     override public void OnRegister()
     {
-        m_signalFrame.AddListener(onFrame);
+        signalFrame.AddListener(onFrame);
 
-        m_signalStartup.Dispatch();
+        signalStartup.Dispatch();
     }
 
 

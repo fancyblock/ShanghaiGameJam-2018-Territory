@@ -7,12 +7,12 @@ public class MapMediator : Mediator
     [Inject]
     public MapView mapView { get; set; }
     [Inject]
-    public StartupSignal m_signalStartup { get; set; }
+    public StartupSignal signalStartup { get; set; }
 
 
     override public void OnRegister()
     {
-        m_signalStartup.AddListener(onGameStart);
+        signalStartup.AddListener(onGameStart);
     }
 
 

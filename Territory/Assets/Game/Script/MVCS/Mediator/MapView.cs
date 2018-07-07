@@ -1,11 +1,14 @@
 ﻿using strange.extensions.mediation.impl;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class MapView : View
 {
+    [Inject]
+    public PopupUISignal signalPopupUI { get; set; }
+
+
     public MapData mapData;
     public TileData tileData;
 
@@ -21,9 +24,7 @@ public class MapView : View
         {
             for(int j = 0; j < mapData.height; j++)
             {
-                int index = j * mapData.width + i;
-
-                eTileType tileType = mapData.tiles[index];
+                eTileType tileType = mapData.tiles[getTileIndex(i, j)];
 
                 if(tileType != eTileType.None)
                 {
@@ -35,8 +36,41 @@ public class MapView : View
 
                     SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
                     sr.sprite = tileInfoDic[tileType].sprite;
+                    sr.sortingOrder = getTileOrder(i, j);
+
+                    go.AddComponent<PolygonCollider2D>();
+
+                    MapTile tile = go.AddComponent<MapTile>();
+                    tile.SetTile(i, j);
+                    tile.SetTapCallback(onTapTile);
                 }
             }
+        }
+    }
+
+
+    private int getTileOrder(int x, int y)
+    {
+        return 100 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+    }
+
+    private int getObjOrder(int x, int y)
+    {
+        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
+    }
+
+    private int getTileIndex(int x, int y)
+    {
+        return y * mapData.width + x;
+    }
+
+    private void onTapTile(int x, int y)
+    {
+        eTileType tileType = mapData.tiles[getTileIndex(x, y)];
+
+        if(tileType == eTileType.FactoryLand || tileType == eTileType.CoreLand)
+        {
+            signalPopupUI.Dispatch(eUI.MakeTroop);
         }
     }
 }
