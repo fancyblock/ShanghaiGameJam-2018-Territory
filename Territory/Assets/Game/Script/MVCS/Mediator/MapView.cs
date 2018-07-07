@@ -14,6 +14,7 @@ public class MapView : View
 
     public AnimatorPlayer animCloud;
     public AnimatorPlayer animLight;
+    public AnimatorPlayer animCoin;
 
 
     public void CreateMap()
