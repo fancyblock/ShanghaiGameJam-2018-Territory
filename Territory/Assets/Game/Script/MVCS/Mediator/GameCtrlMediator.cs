@@ -45,7 +45,6 @@ public class GameCtrlMediator : Mediator
         switch (status)
         {
             case eInGameStatus.ATurn:
-                modelGame.CleanFinishAction();
                 signalMapRefresh.Dispatch();
                 break;
             case eInGameStatus.BTurn:

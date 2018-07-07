@@ -29,7 +29,7 @@ public class MapView : View
                     go.transform.localScale = Vector3.one;
                     go.transform.localPosition = grid2position(i, j);
 
-                    MapTile tile = go.AddComponent<MapTile>();
+                    MapTile tile = go.GetComponent<MapTile>();
                     tile.SetOrder(getTileOrder(i, j));
                     
                     tile.SetTile(i, j);
@@ -57,6 +57,68 @@ public class MapView : View
         }
     }
 
+    public void ShowGridHint(int x, int y)
+    {
+        for(int i = 0; i < mapData.width; i++)
+        {
+            for(int j = 0; j < mapData.height; j++)
+            {
+                MapTile mt = GetTile(i, j);
+
+                if (mt != null)
+                {
+                    if (i == x && j == y)
+                        continue;
+
+                    if( Math.Abs(i-x) + Math.Abs(j-y) == 1 )
+                    {
+                        if(mt.troop)
+                        {
+                            if (mt.troop.country == eCountry.B)
+                                mt.ShowAttack();
+                            else
+                                mt.ShowGrey();
+                        }
+                        else
+                        {
+                            mt.ShowMove();
+                        }
+                    }
+                    else
+                    {
+                        mt.ShowGrey();
+                    }
+                }
+            }
+        }
+    }
+
+    public void CloseGridHint()
+    {
+        for (int i = 0; i < mapData.width; i++)
+        {
+            for (int j = 0; j < mapData.height; j++)
+            {
+                MapTile mt = GetTile(i, j);
+
+                if(mt != null)
+                {
+                    mt.CloseHints();
+                }
+            }
+        }
+    }
+
+    public MapTile GetTile(int x, int y)
+    {
+        string key = x + "_" + y;
+
+        MapTile mt = null;
+
+        mapTiles.TryGetValue(key, out mt);
+
+        return mt;
+    }
 
     private Vector2 grid2position(int x, int y)
     {

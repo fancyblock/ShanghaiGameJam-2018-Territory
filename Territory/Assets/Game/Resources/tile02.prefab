@@ -177,8 +177,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fobiden: {fileID: 1623276933090926}
-  move: {fileID: 1693450237044772}
-  attack: {fileID: 1903012081098628}
+  move: {fileID: 1903012081098628}
+  attack: {fileID: 1693450237044772}
 --- !u!210 &210679126304887536
 SortingGroup:
   m_ObjectHideFlags: 1

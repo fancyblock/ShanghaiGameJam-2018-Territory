@@ -18,6 +18,34 @@ public class MapTile : MonoBehaviour
         GetComponent<SortingGroup>().sortingOrder = order;
     }
 
+    public void CloseHints()
+    {
+        fobiden.SetActive(false);
+        move.SetActive(false);
+        attack.SetActive(false);
+    }
+
+    public void ShowAttack()
+    {
+        fobiden.SetActive(false);
+        move.SetActive(false);
+        attack.SetActive(true);
+    }
+
+    public void ShowMove()
+    {
+        fobiden.SetActive(false);
+        move.SetActive(true);
+        attack.SetActive(false);
+    }
+
+    public void ShowGrey()
+    {
+        fobiden.SetActive(true);
+        move.SetActive(false);
+        attack.SetActive(false);
+    }
+
 
     void OnMouseUpAsButton()
     {

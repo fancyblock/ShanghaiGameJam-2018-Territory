@@ -5,8 +5,6 @@ public class GameModel
 {
     public eInGameStatus gameStatus { get; set; }
 
-    private HashSet<string> finishActTiles = new HashSet<string>();
-
 
     public int GetTroopPrice(eTroopType type)
     {
@@ -26,20 +24,5 @@ public class GameModel
         }
 
         return 0;
-    }
-
-    public void CleanFinishAction()
-    {
-        finishActTiles.Clear();
-    }
-
-    public bool IsFinishAction(int x, int y)
-    {
-        return finishActTiles.Contains(x + "_" + y);
-    }
-
-    public void MakeFinishAction(int x, int y)
-    {
-        finishActTiles.Add(x + "_" + y);
     }
 }

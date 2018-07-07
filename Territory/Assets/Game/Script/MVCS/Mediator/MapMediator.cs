@@ -23,6 +23,7 @@ public class MapMediator : Mediator
     public PopupUISignal signalPopupUI { get; set; }
 
     private int curTileX, curTileY;
+    private Troop curTroop;
 
 
     override public void OnRegister()
@@ -51,17 +52,23 @@ public class MapMediator : Mediator
     {
         MapTileData mapTileData = view.mapData.tiles[view.getTileIndex(x, y)];
 
-        if (mapTileData.initCountry != eCountry.A)
-            return;
-
-        if (mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand)
+        // 移动部队或进攻
+        if(curTroop)
         {
-            if (modelGame.IsFinishAction(x, y))     // 该回合已完成行动
+            if(curTroop.x == x && curTroop.y == y)
             {
-                // 弹框说明或显示正在建造中单位信息？
-
-                return;
+                cancelSelectTroop(curTroop);
             }
+            else
+            {
+                //TODO 
+            }
+        }
+        // 建造部队
+        if (mapTileData.initCountry == eCountry.A && (mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand))
+        {
+            if (view.GetTile(x, y).troop)       // 上面有部队
+                return;
 
             curTileX = x;
             curTileY = y;
@@ -72,7 +79,30 @@ public class MapMediator : Mediator
 
     public void onTapTroop(Troop troop)
     {
+        if (troop.FINISH_ACTION)
+            return;
+
+        if (curTroop == troop)
+        {
+            cancelSelectTroop(troop);
+            return;
+        }
+
+        if (curTroop != null)
+            return;
+
+        view.ShowGridHint(troop.x, troop.y);
         //TODO 
+
+        curTroop = troop;
+    }
+
+    private void cancelSelectTroop(Troop troop)
+    {
+        view.CloseGridHint();
+        //TODO 
+
+        curTroop = null;
     }
 
     // 建造单位
@@ -86,7 +116,5 @@ public class MapMediator : Mediator
         modelPlayer.COIN = modelPlayer.COIN - price;
         // 建造部队
         view.MakeTroop(troopType, curTileX, curTileY);
-
-        modelGame.MakeFinishAction(curTileX, curTileY);
     }
 }
