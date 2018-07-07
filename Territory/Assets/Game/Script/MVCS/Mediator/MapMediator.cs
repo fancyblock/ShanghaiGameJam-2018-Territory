@@ -79,7 +79,8 @@ public class MapMediator : Mediator
                 {
                     if(mt.troop)
                     {
-                        //TODO 
+                        // 攻击
+                        moveTroop(curTroop, x, y);
                     }
                     else
                     {
@@ -111,6 +112,14 @@ public class MapMediator : Mediator
 
     public void onTapTroop(Troop troop)
     {
+        if(troop.country == eCountry.B && curTroop != null)
+        {
+            onTapTile(troop.x, troop.y);
+        }
+
+        if (troop.country != eCountry.A)
+            return;
+
         if (noOperate || modelGame.UI_POPUP || modelGame.gameStatus != eInGameStatus.ATurn)
             return;
 
@@ -149,7 +158,121 @@ public class MapMediator : Mediator
     // 移动部队
     private void moveTroop(Troop troop, int x, int y)
     {
-        StartCoroutine(movingTroop(troop, x, y));
+        MapTile destTile = view.GetTile(x, y);
+
+        if (destTile.troop == null)
+            StartCoroutine(movingTroop(troop, x, y));   // 普通移动
+        else
+            StartCoroutine(movingFight(troop, destTile.troop, x, y, destTile));   // 战斗
+    }
+
+    // 战斗
+    private IEnumerator movingFight(Troop troop, Troop enimy, int x, int y, MapTile battleField)
+    {
+        noOperate = true;
+
+        view.CloseGridHint();
+        troop.ShowOutline(false);
+
+        TweenPosition.Begin(troop.gameObject, 1.0f, view.GridToPosition(x, y));
+        TweenScale ts = TweenScale.Begin(troop.gameObject, 0.25f, new Vector3(1.0f, 1.1f));
+        ts.style = UITweener.Style.PingPong;
+
+        yield return new WaitForSeconds(0.7f);
+
+        view.PlayCloudAnim(x, y);
+
+        yield return new WaitForSeconds(0.3f);
+        Destroy(ts);
+
+        yield return new WaitForSeconds(0.7f);
+
+        view.GetTile(troop.x, troop.y).troop = null;
+        Troop winTroop = getWinner(troop, enimy);
+
+        if(winTroop == null)
+        {
+            // 同归于尽
+            Destroy(troop.gameObject);
+            Destroy(enimy.gameObject);
+            battleField.troop = null;
+        }
+        else if(winTroop == troop)
+        {
+            // 进攻方赢
+            Destroy(enimy.gameObject);
+
+            troop.sortingGroup.sortingOrder = view.GetTroopOrder(x, y);
+
+            battleField.troop = troop;
+
+            troop.x = x;
+            troop.y = y;
+
+            troop.FINISH_ACTION = true;
+        }
+        else if(winTroop == enimy)
+        {
+            // 防守方赢
+            Destroy(troop.gameObject);
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        curTroop = null;
+
+        noOperate = false;
+
+        checkOccupy();
+    }
+
+    // 判断胜负 
+    private Troop getWinner(Troop t1, Troop t2)
+    {
+        if(t1.type == eTroopType.paper)
+        {
+            switch (t2.type)
+            {
+                case eTroopType.rock:
+                    return t1;
+                case eTroopType.paper:
+                    return null;
+                case eTroopType.scissors:
+                    return t2;
+                default:
+                    break;
+            }
+        }
+        else if(t1.type == eTroopType.rock)
+        {
+            switch (t2.type)
+            {
+                case eTroopType.rock:
+                    return null;
+                case eTroopType.paper:
+                    return t2;
+                case eTroopType.scissors:
+                    return t1;
+                default:
+                    break;
+            }
+        }
+        else if(t1.type == eTroopType.scissors)
+        {
+            switch (t2.type)
+            {
+                case eTroopType.rock:
+                    return t2;
+                case eTroopType.paper:
+                    return t1;
+                case eTroopType.scissors:
+                    return null;
+                default:
+                    break;
+            }
+        }
+
+        return null;
     }
 
     private IEnumerator movingTroop(Troop troop, int x, int y)
@@ -189,7 +312,7 @@ public class MapMediator : Mediator
     {
         MapTile tile = null;
 
-        foreach( MapTile mt in modelGame.mapTiles.Values)
+        foreach(MapTile mt in modelGame.mapTiles.Values)
         {
             if (mt.type == eTileType.CrossLand)
             {
