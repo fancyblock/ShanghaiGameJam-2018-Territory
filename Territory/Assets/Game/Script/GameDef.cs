@@ -11,9 +11,6 @@ public class GameDef
 
     public const int BASE_TROOP_COST = 35;
 
-
-    public const float EVENT_APPEAR_RATE = 1.5f;
-
-    public const float LIGHT_RATE = 1.5f;
-    public const float BOUNS_RATE = 0.0f;
+    public const float EVENT_APPEAR_RATE = 0.4f;
+    public const float LIGHT_RATE = 0.5f;
 }

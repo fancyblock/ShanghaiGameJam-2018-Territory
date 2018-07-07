@@ -62,7 +62,7 @@ public class MapMediator : Mediator
             {
                 showLight();
             }
-            else if(UnityEngine.Random.value < GameDef.BOUNS_RATE)
+            else
             {
                 showBouns();
             }
@@ -209,7 +209,22 @@ public class MapMediator : Mediator
     // 额外奖励
     private void showBouns()
     {
-        //TODO 
+        StartCoroutine(showingBouns());
+    }
+
+    private IEnumerator showingBouns()
+    {
+        noOperate = true;
+
+        yield return new WaitForSeconds(0.7f);
+
+        view.PlayCoinAnim();
+
+        yield return new WaitForSeconds(1.0f);
+
+        modelPlayer.COIN += 10;
+
+        noOperate = false;
     }
 
 

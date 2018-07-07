@@ -91,6 +91,22 @@ public class MapView : View
         StartCoroutine(playingLight());
     }
 
+    public void PlayCoinAnim()
+    {
+        animCoin.gameObject.SetActive(true);
+
+        StartCoroutine(playingCoin());
+    }
+
+    private IEnumerator playingCoin()
+    {
+        animCoin.Play("coin");
+
+        yield return new WaitForSeconds(1.0f);
+
+        animCoin.gameObject.SetActive(false);
+    }
+
     private IEnumerator playingLight()
     {
         animLight.Play("light");
