@@ -31,6 +31,7 @@ public class PanelMakeTroopMediator : Mediator
             m_view.txtPriceTroop3.text = "造价：" + modelGame.GetTroopPrice(eTroopType.paper);
 
             gameObject.SetActive(true);
+            modelGame.UI_POPUP = true;
         }
     }
 }

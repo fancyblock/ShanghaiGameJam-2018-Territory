@@ -10,5 +10,6 @@ public class BaseView : View
 	public void onClose()
     {
         gameObject.SetActive(false);
+        (GameRoot.Instance.context as GameContext).injectionBinder.GetInstance<GameModel>().UI_POPUP = false;
     }
 }

@@ -30,6 +30,9 @@ public class MapView : View
                     go.transform.localPosition = GridToPosition(i, j);
 
                     MapTile tile = go.GetComponent<MapTile>();
+                    tile.type = mapTileData.type;
+                    tile.country = mapTileData.initCountry;
+
                     tile.SetOrder(getTileOrder(i, j));
                     
                     tile.SetTile(i, j);
@@ -55,6 +58,11 @@ public class MapView : View
                 }
             }
         }
+    }
+
+    public void ChangeTile(int x, int y, eCountry country)
+    {
+        //TODO 
     }
 
     public void ShowGridHint(int x, int y)

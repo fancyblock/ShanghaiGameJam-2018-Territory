@@ -5,6 +5,8 @@ public class GameModel
 {
     public eInGameStatus gameStatus { get; set; }
 
+    public bool UI_POPUP { get; set; }
+
 
     public int GetTroopPrice(eTroopType type)
     {

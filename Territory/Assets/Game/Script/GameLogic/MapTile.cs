@@ -8,7 +8,11 @@ public class MapTile : MonoBehaviour
     public GameObject move;
     public GameObject attack;
 
-    private int x, y;
+    public eTileType type;
+    public eCountry country;
+
+    public int x, y;
+
     private Action<int, int> callback;
 
     public Troop troop { get; set; }

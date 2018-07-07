@@ -53,13 +53,13 @@ public class MapMediator : Mediator
 
     public void onTapTile(int x, int y)
     {
-        if (noOperate)
+        if (noOperate || modelGame.UI_POPUP)
             return;
 
-        MapTileData mapTileData = view.mapData.tiles[view.getTileIndex(x, y)];
+        MapTile mt = view.GetTile(x, y);
 
         // 移动部队或进攻
-        if(curTroop)
+        if (curTroop)
         {
             if(curTroop.x == x && curTroop.y == y)
             {
@@ -69,8 +69,6 @@ public class MapMediator : Mediator
             {
                 if(Math.Abs(curTroop.x - x) + Math.Abs(curTroop.y - y) == 1)
                 {
-                    MapTile mt = view.GetTile(x, y);
-
                     if(mt.troop)
                     {
                         //TODO 
@@ -84,7 +82,8 @@ public class MapMediator : Mediator
             }
         }
         // 建造部队
-        else if (mapTileData.initCountry == eCountry.A && (mapTileData.type == eTileType.FactoryLand || mapTileData.type == eTileType.CoreLand))
+        else if (mt.country == eCountry.A && 
+                (mt.type == eTileType.FactoryLand || mt.type == eTileType.CoreLand))
         {
             if (view.GetTile(x, y).troop)       // 上面有部队
                 return;
@@ -98,7 +97,7 @@ public class MapMediator : Mediator
 
     public void onTapTroop(Troop troop)
     {
-        if (noOperate)
+        if (noOperate || modelGame.UI_POPUP)
             return;
 
         if (troop.FINISH_ACTION)
@@ -134,8 +133,12 @@ public class MapMediator : Mediator
         troop.ShowOutline(false);
 
         TweenPosition.Begin(troop.gameObject, 1.0f, view.GridToPosition(x, y));
+        TweenScale ts = TweenScale.Begin(troop.gameObject, 0.25f, new Vector3(1.0f, 1.1f));
+        ts.style = UITweener.Style.PingPong;
 
         yield return new WaitForSeconds(1.0f);
+
+        Destroy(ts);
 
         troop.sortingGroup.sortingOrder = view.GetTroopOrder(x, y);
 
@@ -148,6 +151,47 @@ public class MapMediator : Mediator
         troop.FINISH_ACTION = true;
 
         curTroop = null;
+
+        noOperate = false;
+
+        checkOccupy();
+    }
+
+    // 检查占领
+    private void checkOccupy()
+    {
+        MapTile tile = null;
+
+        for(int i = 0; i < view.mapData.width; i++)
+        {
+            for(int j = 0; j < view.mapData.height; j++)
+            {
+                MapTile mt = view.GetTile(i, j);
+
+                if(mt != null && mt.type == eTileType.CrossLand)
+                {
+                    if(mt.troop)
+                    {
+                        if (mt.country != mt.troop.country)
+                            tile = mt;
+                    }
+                }
+            }
+        }
+
+        if (tile)
+            StartCoroutine(occupyingTile(tile));
+    }
+
+    private IEnumerator occupyingTile(MapTile tile)
+    {
+        noOperate = true;
+
+        view.ChangeTile(tile.x, tile.y, tile.troop.country);
+
+        ///////////////////////////////////<
+
+        yield return new WaitForSeconds(0.5f);
 
         noOperate = false;
     }
