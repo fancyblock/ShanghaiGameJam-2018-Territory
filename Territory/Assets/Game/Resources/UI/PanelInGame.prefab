@@ -520,7 +520,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtTitle: {fileID: 114147814817258524}
+  notifyMask: {fileID: 0}
   notifyBg: {fileID: 0}
+  imgBg: {fileID: 0}
   txtNotifyInfo: {fileID: 0}
   txtCoin: {fileID: 114368027918994956}
   ATurnBg: {fileID: 1980158577569088}

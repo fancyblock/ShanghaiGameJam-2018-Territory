@@ -22,9 +22,9 @@ public class InGameMediator : Mediator
         signalShowNotify.AddListener(onShowNotify);
     }
 
-    private void onShowNotify(string obj)
+    private void onShowNotify(string obj, bool red)
     {
-        view.ShowNotify(obj);
+        view.ShowNotify(obj, red);
     }
 
     private void onFrame()

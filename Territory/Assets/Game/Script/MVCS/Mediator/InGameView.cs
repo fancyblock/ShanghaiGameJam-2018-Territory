@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class InGameView : BaseView
 {
     public Text txtTitle;
+    public GameObject notifyMask;
     public GameObject notifyBg;
+    public Image imgBg;
     public Text txtNotifyInfo;
     public Text txtCoin;
 
@@ -28,19 +30,32 @@ public class InGameView : BaseView
     }
 
 
-    public void ShowNotify(string info)
+    public void ShowNotify(string info, bool red)
     {
         txtNotifyInfo.text = info;
+
+        if (red)
+            imgBg.color = new Color(191f/255f, 88f/255f, 71f/255f);
+        else
+            imgBg.color = new Color(72f/255f, 173f/255f, 58f/255f);
 
         StartCoroutine(showingNotify());
     }
 
     private IEnumerator showingNotify()
     {
-        TweenPosition.Begin(notifyBg, 0.16f, Vector3.zero).from = new Vector2(-1200,0);
+        notifyMask.SetActive(true);
 
-        yield return new WaitForSeconds(0.7f);
+        notifyBg.SetActive(true);
+        TweenScale.Begin(notifyBg, 0.17f, Vector3.one).from = new Vector2(1,0);
 
-        TweenPosition.Begin(notifyBg, 0.16f, new Vector2(1200,0));
+        yield return new WaitForSeconds(1.3f);
+
+        TweenScale.Begin(notifyBg, 0.17f, new Vector2(1,0));
+
+        yield return new WaitForSeconds(0.17f);
+        notifyBg.SetActive(false);
+
+        notifyMask.SetActive(false);
     }
 }

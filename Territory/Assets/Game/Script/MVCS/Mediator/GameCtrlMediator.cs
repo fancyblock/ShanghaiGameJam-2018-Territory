@@ -68,12 +68,12 @@ public class GameCtrlMediator : Mediator
 
         if (aCountry)
         {
-            signalShowNotify.Dispatch("我军回合结束");
+            signalShowNotify.Dispatch("敌军回合开始", true);
             StartCoroutine(delayChangeStatus(eInGameStatus.BTurn));
         }
         else
         {
-            signalShowNotify.Dispatch("敌军回合结束");
+            signalShowNotify.Dispatch("我军回合开始", false);
             StartCoroutine(delayChangeStatus(eInGameStatus.ATurn));
         }
     }
