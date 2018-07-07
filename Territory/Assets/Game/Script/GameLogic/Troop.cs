@@ -11,15 +11,28 @@ public class Troop : MonoBehaviour
     public int x;
     public int y;
 
+    public GameObject outline;
     public GameObject flagFinishAct;
 
     private bool finishAct = false;
     private Action<Troop> callback;
 
 
+    void Awake()
+    {
+        if (outline)
+            outline.SetActive(false);
+    }
+
     public void SetTapCallback(Action<Troop> callback)
     {
         this.callback = callback;
+    }
+
+    public void ShowOutline(bool show)
+    {
+        if(outline)
+            outline.SetActive(show);
     }
 
 

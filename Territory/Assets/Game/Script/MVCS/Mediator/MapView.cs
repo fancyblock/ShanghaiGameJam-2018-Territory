@@ -27,7 +27,7 @@ public class MapView : View
                     GameObject go = Instantiate(tileData.GetTilePrefab(mapTileData.type, mapTileData.initCountry), transform);
                     go.name = "tile_"+ i + "_" + j;
                     go.transform.localScale = Vector3.one;
-                    go.transform.localPosition = grid2position(i, j);
+                    go.transform.localPosition = GridToPosition(i, j);
 
                     MapTile tile = go.GetComponent<MapTile>();
                     tile.SetOrder(getTileOrder(i, j));
@@ -42,13 +42,13 @@ public class MapView : View
                         if(mapTileData.initCountry == eCountry.A)
                         {
                             go = Instantiate(Resources.Load<GameObject>("baseA"), transform);
-                            go.transform.localPosition = grid2position(i, j);
+                            go.transform.localPosition = GridToPosition(i, j);
                             go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
                         }
                         else if(mapTileData.initCountry == eCountry.B)
                         {
                             go = Instantiate(Resources.Load<GameObject>("baseB"), transform);
-                            go.transform.localPosition = grid2position(i, j);
+                            go.transform.localPosition = GridToPosition(i, j);
                             go.GetComponent<SortingGroup>().sortingOrder = getObjOrder(i, j);
                         }
                     }
@@ -120,19 +120,20 @@ public class MapView : View
         return mt;
     }
 
-    private Vector2 grid2position(int x, int y)
+    public Vector2 GridToPosition(int x, int y)
     {
         return new Vector2(x * mapData.tileWidth / 2.0f + y * mapData.tileWidth / 2.0f, -x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
     }
 
+    public int GetTroopOrder(int x, int y)
+    {
+        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f) + 2;
+    }
+
+
     private int getTileOrder(int x, int y)
     {
         return 100 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f);
-    }
-
-    private int getTroopOrder(int x, int y)
-    {
-        return 300 - (int)(-x * mapData.tileHeight / 2.0f + y * mapData.tileHeight / 2.0f) + 2;
     }
 
     private int getObjOrder(int x, int y)
@@ -156,7 +157,7 @@ public class MapView : View
         TroopInfo ti = troopData.GetTroopInfo(type, eCountry.A);
 
         GameObject troopGo = Instantiate(ti.prefab, transform);
-        troopGo.transform.localPosition = grid2position(x, y);
+        troopGo.transform.localPosition = GridToPosition(x, y);
 
         Troop t = troopGo.GetComponent<Troop>();
         t.type = type;
@@ -165,7 +166,7 @@ public class MapView : View
         t.y = y;
 
         t.SetTapCallback(onTapTroop);
-        t.sortingGroup.sortingOrder = getTroopOrder(x, y);
+        t.sortingGroup.sortingOrder = GetTroopOrder(x, y);
 
         t.FINISH_ACTION = true;
 
