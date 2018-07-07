@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 222699924601051472}
   - component: {fileID: 114147814817258524}
   m_Layer: 5
-  m_Name: txtTurnInfo
+  m_Name: txtInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 222927126959461774}
   - component: {fileID: 114242309472137102}
   m_Layer: 5
-  m_Name: TurnInfoBg
+  m_Name: InfoBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34505c06c6c345b46ba99939548cd9a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  txtTitle: {fileID: 114147814817258524}
   notifyBg: {fileID: 1830280161044592}
   txtNotifyInfo: {fileID: 114240476819451606}
   ATurnBg: {fileID: 1980158577569088}

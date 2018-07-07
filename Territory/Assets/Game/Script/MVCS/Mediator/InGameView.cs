@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InGameView : BaseView
 {
+    public Text txtTitle;
     public GameObject notifyBg;
     public Text txtNotifyInfo;
 
@@ -13,13 +14,18 @@ public class InGameView : BaseView
 
     [Inject]
     public EndTurnSignal signalEndTurn { get; set; }
+    [Inject]
+    public GameModel modelGame { get; set; }
 
 
+    // 手动结束回合
     public void EndTurn()
     {
         Debug.Log("end my turn");
 
         //TODO 
+
+        modelGame.gameStatus = eInGameStatus.BTurn;
 
         signalEndTurn.Dispatch(true);
 
