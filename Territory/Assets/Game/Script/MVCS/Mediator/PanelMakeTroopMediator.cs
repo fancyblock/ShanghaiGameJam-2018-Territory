@@ -23,6 +23,8 @@ public class PanelMakeTroopMediator : Mediator
 
     private void onPopup(eUI ui)
     {
+        modelGame.RefreshPrice();
+
         if (ui == eUI.MakeTroop)
         {
             m_view.txtCurCoin.text = "" + modelPlayer.COIN;
