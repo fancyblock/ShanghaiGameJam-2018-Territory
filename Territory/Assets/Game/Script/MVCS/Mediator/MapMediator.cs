@@ -44,6 +44,8 @@ public class MapMediator : Mediator
         signalMapRefresh.AddListener(onMapRefresh);
         signalGetOccupyTile.AddListener(onGetOccupyTile);
         signalMoveTroop.AddListener(moveTroop);
+
+        noOperate = false;
     }
 
     private void onMapRefresh()
@@ -62,9 +64,12 @@ public class MapMediator : Mediator
             {
                 showLight();
             }
-            else
+            else 
             {
-                showBouns();
+                signalGetOccupyTile.Dispatch(eCountry.A);
+
+                if(signalGetOccupyTile.OccupyTileCount == 4)
+                    showBouns();
             }
         }
     }
