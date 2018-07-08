@@ -99,8 +99,16 @@ public class MapMediator : Mediator
                 {
                     if(mt.troop)
                     {
-                        // 攻击
-                        moveTroop(curTroop, x, y);
+                        if (mt.troop.country != curTroop.country)
+                        {
+                            // 攻击
+                            moveTroop(curTroop, x, y);
+                        }
+                        else
+                        {
+                            // 点到自己人了
+                            //TODO 
+                        }
                     }
                     else
                     {
